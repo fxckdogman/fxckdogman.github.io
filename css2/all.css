@@ -237,9 +237,6 @@ h6 span,
 	position: relative;
 	top: -1px;
 }
-.navbar .nav > li > span{
-	color: red;
-}
 h1 span {
 	top: -2px
 }
@@ -355,6 +352,9 @@ input#delivery {
 .center-me {
 	display: table-cell;
 	vertical-align: middle;
+}
+.center-me h2{ 
+	color: pink;
 }
 /* No padding on-the-fly */
 .nopadding {
@@ -966,13 +966,13 @@ span.sb-caret { /* Caret Down */
 	padding-top: 0;
 }
 #hero h2 {
-	color: pink;
+	color: #151515;
 	margin-bottom: 20px;
 	display: inline-block;
 	padding: 14px;
 }
 #hero p {
-	color: white;
+	color: #333;
 	font-family: 'Georgia', serif, Helvetica, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
 	font-size: 18px;
 	display: inline-block;
