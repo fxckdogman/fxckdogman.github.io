@@ -196,7 +196,10 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="延时加载（懒加载）的本质是产生只有OID的代理对象，当"><a href="#延时加载（懒加载）的本质是产生只有OID的代理对象，当" class="headerlink" title="延时加载（懒加载）的本质是产生只有OID的代理对象，当"></a>延时加载（懒加载）的本质是产生只有OID的代理对象，当</h3>
+      		<h4 id="延时加载配置"><a href="#延时加载配置" class="headerlink" title="延时加载配置"></a>延时加载配置</h4><pre><code>将Customer.hbm.xml文件的&lt;class&gt;元素的lazy属性设为true，表示使用延迟检索策略！
+</code></pre><h4 id="延时加载特征"><a href="#延时加载特征" class="headerlink" title="延时加载特征"></a>延时加载特征</h4><pre><code>    当执行Session的load()方法时，hibernate不会立即执行查询CUSTOMERS表的select语句，仅仅返回Customer类的代理类的实例
+，这个代理类具由以下特征：
+</code></pre><p>（1） 由Hibernate在运行时动态生成，它扩展了Customer类，因此它继承了Customer类的所有属性和方法，但它的实现对于应用程序是透明的。<br>（2） 当Hibernate创建Customer代理类实例时，仅仅初始化了它的OID属性，其他属性都为null，因此这个代理类实例占用的内存很少。<br>（3）当应用程序第一次访问Customer代理类实例时（例如调用customer.getXXX()或customer.setXXX()方法）， Hibernate会初始化代理类实例，在初始化过程中执行select语句，真正从数据库中加载Customer对象的所有数据。但有个例外，那就是当应用程序访问Customer代理类实例的getId()方法时，Hibernate不会初始化代理类实例，因为在创建代理类实例时OID就存在了，不必到数据库中去查询。</p>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
