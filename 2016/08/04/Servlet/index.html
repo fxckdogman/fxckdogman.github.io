@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2016/10 | Summer</title>
+  <title>Servlet | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -75,7 +75,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -181,96 +181,67 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>人生，总有不期而遇的温暖，和生生不息的希望。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-
-
-
-
-<section id="services">
+      
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/10/18/Hibernate中get与load方法区分。/">Hibernate中get与load方法区分。</a></h4>
-                            
-                            <p><time datetime="2016-10-18T12:56:16.000Z"><a href="/2016/10/18/Hibernate中get与load方法区分。/">2016-10-18</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/10/18/hibernate中延时加载存在的问题及解决办法。/">hibernate中延时加载存在的问题及解决办法。</a></h4>
-                            
-                            <p><time datetime="2016-10-18T07:41:11.000Z"><a href="/2016/10/18/hibernate中延时加载存在的问题及解决办法。/">2016-10-18</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/10/10/Demo/">Demo</a></h4>
-                            
-                            <p><time datetime="2016-10-09T16:24:21.000Z"><a href="/2016/10/10/Demo/">2016-10-10</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/10/01/jQuery入门/">jQuery入门</a></h4>
-                            
-                            <p><time datetime="2016-10-01T11:00:37.000Z"><a href="/2016/10/01/jQuery入门/">2016-10-01</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-08-04T13:12:52.000Z" itemprop="datePublished">
+          2016-08-04
+      </time>
+    
+</span>
+                <h1>Servlet</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>Servlet（Service Applte）是运行在服务器端的Java小程序，由sun公司提供一套规范（接口），用来处理客户端请求、响应给浏览器的动态资源。Servlet的实质就是java代码，通过java的API    动态的向客户端输出内容。</p>
+<p>一．Servlet快速入门<br>    实现步骤：<br>    1）创建类实现Servlet接口<br>    2）覆盖尚未实现的方法—service方法<br>    3）在web.xml进行servlet的配置<br>二.servlet规范：包含三个技术点<br>    1）servlet技术<br>    2）filter技术—过滤器<br>    3）listener技术—监听器<br>三.API<br>    Servlet中方法<br>    service:每次访问都会执行<br>    init（SerlvetConfig serlvetConfig）:servlet对象创建时执行。<br>        serlvetConfig作用：<br>        1获得该servlet对象的配置信息<br>            例如：xml配置文件中的servlet-name serlvetConfig.getServletName();等<br>        2.获得servlet的初始化参数<br>        3.获得servletContext对象  config.getServletContext();<br>    destory：servlet对象销毁的时候执行。</p>
+<p>通过Demo发现访问相应的servlet路径，service方法会被调用。但是方法不是静态，肯定是对象调用， 即FirstServlet对象调用service方法，我们并没有手动new对象，就表明我们访问服务器时，服务器帮我们创建对象并调用相应的方法。</p>
+<p>四.Servlet生命周期</p>
+<p>默认第一次访问Servlet 创建该对象，<br>Servlet对象销毁，即在tomcat服务器中没有引用。Tomcat服务器关闭。<br>ServletRequest：代表请求 认为内部封装http请求的信息<br>ServletResponse:代表相应，认为内部要封装的相应的信息。</p>
+<p>面试：servlet的生命周期<br>Servlet默认第一次访问的时候创建，服务器关闭的时候销毁<br>Servlet创建时会调用init方法。销毁时会调用的destory方法<br>访问相应的servlet都会调用service方法</p>
+<p>五.客户端要访问服务器上的某个资源<br>首先网页输入相应的地址，<a href="http://localhost:8080/WEB/FirstServlet">http://localhost:8080/WEB/FirstServlet</a><br>访问通过端口找到tomcat服务器，将这个请求封装成http请求发送到客户端 （浏览器封装）<br>请求给Tomcat内核（引擎），内核1.解析请求的资源地址。查找xml配置文件。找到servlet类<br>Xml文件中<servlet-pattern>写错会报404</p>
+<p><serlvet-class>写错报500.类找不到<br>2.创建servlet对象<br>3.创建代表请求的request对象和代表相应的response对象，调用service方法并传递参数。<br>每次访问service都会创建一对新的response和request对象<br>服务器端有相应的servlet(rq,rp)</p>
+<p>六.Xml配置详解：</p>
+<p><servlet>下<servlet-name>自己定义，但是必须和<serlvet-mapping>中<servlet-name>一致。<serlvet-class>是写当前servlet的全包名。</p>
+<p><serlvet-mapping>中<url-pattern>的配置方式</p>
+<ol>
+<li>完全匹配。访问与配置完全相同</li>
+<li>目录匹配./a/b/*。只要访问路径是/a/b/  后面有或没有任意都可以匹配到</li>
+<li>扩展名匹配 <em>.扩展名。只有后缀名符合就能匹配<br>注意 ：2.3不可以混用 /a/b/</em>.c</li>
+</ol>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/10/01/jQuery入门/" style="float: left;">
+        ← jQuery入门
+    </a>
+    
+    
+</nav>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>与其临渊羡鱼，不如退而结网。</p>
-        </div>
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/08/04/Servlet/" data-title="Servlet" data-url="http://yoursite.com/2016/08/04/Servlet/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 

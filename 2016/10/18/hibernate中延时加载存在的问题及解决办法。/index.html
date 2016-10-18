@@ -196,14 +196,33 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h4 id="延时加载配置"><a href="#延时加载配置" class="headerlink" title="延时加载配置"></a>延时加载配置</h4><pre><code>将Customer.hbm.xml文件的&lt;class&gt;元素的lazy属性设为true，表示使用延迟检索策略！
-</code></pre><h4 id="延时加载特征"><a href="#延时加载特征" class="headerlink" title="延时加载特征"></a>延时加载特征</h4><pre><code>    当执行Session的load()方法时，hibernate不会立即执行查询CUSTOMERS表的select语句，仅仅返回Customer类的代理类的实例
-，这个代理类具由以下特征：
-</code></pre><p>（1） 由Hibernate在运行时动态生成，它扩展了Customer类，因此它继承了Customer类的所有属性和方法，但它的实现对于应用程序是透明的。<br>（2） 当Hibernate创建Customer代理类实例时，仅仅初始化了它的OID属性，其他属性都为null，因此这个代理类实例占用的内存很少。<br>（3）当应用程序第一次访问Customer代理类实例时（例如调用customer.getXXX()或customer.setXXX()方法）， Hibernate会初始化代理类实例，在初始化过程中执行select语句，真正从数据库中加载Customer对象的所有数据。但有个例外，那就是当应用程序访问Customer代理类实例的getId()方法时，Hibernate不会初始化代理类实例，因为在创建代理类实例时OID就存在了，不必到数据库中去查询。</p>
+      		<h4 id="一、延时加载配置"><a href="#一、延时加载配置" class="headerlink" title="一、延时加载配置"></a>一、延时加载配置</h4><p>将Customer.hbm.xml文件的<class>元素的lazy属性设为true，表示使用延迟检索策略！</p>
+<h4 id="二、延时加载特征"><a href="#二、延时加载特征" class="headerlink" title="二、延时加载特征"></a>二、延时加载特征</h4><p>当执行Session的load()方法时，hibernate不会立即执行查询CUSTOMERS表的select语句，仅仅返回Customer类的代理类的实例，这个代理类具由以下特征：<br>（1） 由Hibernate在运行时动态生成，它扩展了Customer类，因此它继承了Customer类的所有属性和方法，但它的实现对于应用程序是透明的。<br>（2） 当Hibernate创建Customer代理类实例时，仅仅初始化了它的OID属性，其他属性都为null，因此这个代理类实例占用的内存很少。<br>（3）当应用程序第一次访问Customer代理类实例时（例如调用customer.getXXX()或customer.setXXX()方法）， Hibernate会初始化代理类实例，在初始化过程中执行select语句，真正从数据库中加载Customer对象的所有数据。但有个例外，那就是当应用程序访问Customer代理类实例的getId()方法时，Hibernate不会初始化代理类实例，因为在创建代理类实例时OID就存在了，不必到数据库中去查询。</p>
+<h4 id="三、延时加载实例解析：以下代码先通过Session的load-方法加载Customer对象，然后访问它的name属性："><a href="#三、延时加载实例解析：以下代码先通过Session的load-方法加载Customer对象，然后访问它的name属性：" class="headerlink" title="三、延时加载实例解析：以下代码先通过Session的load()方法加载Customer对象，然后访问它的name属性："></a>三、延时加载实例解析：以下代码先通过Session的load()方法加载Customer对象，然后访问它的name属性：</h4><p>Java代码<br>tx = session.beginTransaction();<br>Customer customer=(Customer)session.load(Customer.class,new Long(1));<br>customer.getName();<br>tx.commit();  </p>
+<p>在运行session.load()方法时Hibernate不执行任何select语句，仅仅返回Customer类的代理类的实例，它的OID为1，这是由load()方法的第二个参数指定的。当应用程序调用customer.getName()方法时，Hibernate会初始化Customer代理类实例，从数据库中加载Customer对象的数据，执行以下select语句：<br>Sql代码<br>select <em> from CUSTOMERS where ID=1;<br>select </em> from ORDERS where CUSTOMER_ID=1;  </p>
+<h4 id="四、延迟初始化错误是运用Hibernate开发项目时最常见的错误。如果对一个类或者集合配置了延迟检索策略，那么必须当代理类实例或代理集合处于持久化状态（即处于Session范围内）时，才能初始化它。如果在游离状态时才初始化它，就会产生延迟初始化错误。当元素的lazy属性为true，会影响Session的load-方法的各种运行时行为，下面举例说明。"><a href="#四、延迟初始化错误是运用Hibernate开发项目时最常见的错误。如果对一个类或者集合配置了延迟检索策略，那么必须当代理类实例或代理集合处于持久化状态（即处于Session范围内）时，才能初始化它。如果在游离状态时才初始化它，就会产生延迟初始化错误。当元素的lazy属性为true，会影响Session的load-方法的各种运行时行为，下面举例说明。" class="headerlink" title="四、延迟初始化错误是运用Hibernate开发项目时最常见的错误。如果对一个类或者集合配置了延迟检索策略，那么必须当代理类实例或代理集合处于持久化状态（即处于Session范围内）时，才能初始化它。如果在游离状态时才初始化它，就会产生延迟初始化错误。当元素的lazy属性为true，会影响Session的load()方法的各种运行时行为，下面举例说明。"></a>四、延迟初始化错误是运用Hibernate开发项目时最常见的错误。如果对一个类或者集合配置了延迟检索策略，那么必须当代理类实例或代理集合处于持久化状态（即处于Session范围内）时，才能初始化它。如果在游离状态时才初始化它，就会产生延迟初始化错误。当<class>元素的lazy属性为true，会影响Session的load()方法的各种运行时行为，下面举例说明。</h4><p>1．如果加载的Customer对象在数据库中不存在，Session的load()方法不会抛出异常，只有当运行customer.getName()方法时才会抛出以下异常：</p>
+<p>ERROR LazyInitializer:63 - Exception initializing proxy<br>net.sf.hibernate.ObjectNotFoundException: No row with the given identifier exists: 1, of class:<br>mypack.Customer</p>
+<p>2．如果在整个Session范围内，应用程序没有访问过Customer对象，那么Customer代理类的实例一直不会被初始化，Hibernate不会执行任何select语句。以下代码试图在关闭Session后访问Customer游离对象：<br>Java代码<br>tx = session.beginTransaction();<br>Customer customer=(Customer)session.load(Customer.class,new Long(1));<br>tx.commit();<br>session.close();<br>customer.getName();<br>由于引用变量customer引用的Customer代理类的实例在Session范围内始终没有被初始化，因此在执行customer.getName()方法时，Hibernate会抛出以下异常：<br>ERROR LazyInitializer:63 - Exception initializing proxy<br>net.sf.hibernate.HibernateException: Could not initialize proxy - the owning Session was closed<br>由此可见，Customer代理类的实例只有在当前Session范围内才能被初始化。</p>
+<p>3．net.sf.hibernate.Hibernate类的initialize()静态方法用于在Session范围内显式初始化代理类实例，isInitialized()方法用于判断代理类实例是否已经被初始化。例如：<br>Java代码<br>tx = session.beginTransaction();<br>Customer customer=(Customer)session.load(Customer.class,new Long(1));<br>if(!Hibernate.isInitialized(customer))<br>Hibernate.initialize(customer);<br>tx.commit();<br>session.close();<br>customer.getName();<br>以上代码在Session范围内通过Hibernate类的initialize()方法显式初始化了Customer代理类实例，因此当Session关闭后，可以正常访问Customer游离对象。</p>
+<p>4．当应用程序访问代理类实例的getId()方法时，不会触发Hibernate初始化代理类实例的行为，例如：<br>Java代码<br>tx = session.beginTransaction();<br>Customer customer=(Customer)session.load(Customer.class,new Long(1));<br>customer.getId();<br>tx.commit();<br>session.close();<br>customer.getName();<br>当应用程序访问customer.getId()方法时，该方法直接返回Customer代理类实例的OID值，无需查询数据库。由于引用变量 customer始终引用的是没有被初始化的Customer代理类实例，因此当Session关闭后再执行customer.getName()方法， Hibernate会抛出以下异常：</p>
+<p>ERROR LazyInitializer:63 - Exception initializing proxy<br>net.sf.hibernate.HibernateException: Could not initialize proxy - the owning Session was closed</p>
+<p>解决方法：<br>由于hibernate采用了lazy=true,这样当你用hibernate查询时,返回实际为利用cglib增强的代理类,但其并没有实际填充;当你在前端,利用它来取值(getXXX)时,这时Hibernate才会到数据库执行查询,并填充对象,但此时如果和这个代理类相关的session已关闭掉,就会产生种错误.<br>在做一对多时，有时会出现”could not initialize proxy - clothe owning Session was sed,这个好像是hibernate的缓存问题.问题解决:需要在<many-to-one>里设置lazy=”false”. 但有可能会引发另一个异常叫</p>
+<p>failed to lazily initialize a collection of role: XXXXXXXX, no session or session was closed</p>
+<p>解决方法:在web.xml中加入<br>Xml代码</p>
+<filter><br>    <filter-name>hibernateFilter</filter-name><br>    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class><br></filter>
+
+<p><filter-mapping><br>    <filter-name>hibernateFilter</filter-name><br>    <url-pattern>*.do</url-pattern><br></filter-mapping>  </p>
+<h4 id="五、使用延时加载条件判断："><a href="#五、使用延时加载条件判断：" class="headerlink" title="五、使用延时加载条件判断："></a>五、使用延时加载条件判断：</h4><p>举例说明<br> hibernate3.0中lazy有三个值，true，false，proxy,默认的是lazy=”proxy”.具体设置要看你的需求<br> 假如在student对象中包含一个head对象<br> 如果你确定在用student对象的时候就要用到head对象里的属性，那你就设置立即加载，因为设置立即加载那么在查询student的同时就会查询student的head，hibernate就会在查询的时候关联两张表从而生成的sql就可能只有一条。</p>
+<p> 而如果你设置的是延迟加载，那么肯定会要生成1+N条sql语句：其中“1”是查询student的语句，“N”是根据N个student的id去查询head的N条语句。而且，延迟加载是要用到的时候才去执行查询，这样系统判断那里需要加载，那里不需要加载也需要时间，性能上肯定就不如立即加载了！</p>
+<p> 如果，你是有的地方需要用到student的时候才用到head属性，那么你就设置成延迟加载，因为查询2张表的数据肯定要比查询1张表的数据消耗大。<br> 减少SQL语句，能够大幅的提高性能；但读取不需要的属性，又会浪费内存、数据库和网络资源。<br> 所以合适的属性颗度划分非常重要。一次加载全部需要的属性，把不需要的属性延时加载。按照业务需求，把属性按需求进行切分，确保一次访问能够得到全部需要的数据，这是最好的 </p>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/10/18/Hibernate中get与load方法区分。/" style="float: left;">
+        ← Hibernate中get与load方法区分。
+    </a>
     
     
     <a class="pull-right" href="/2016/10/10/Demo/">
