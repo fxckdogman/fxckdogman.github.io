@@ -196,7 +196,7 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>get和load方式都是根据id取得一个记录<br>下边详细说一下get和load的不同，因为有些时候为了对比也会把find加进来。</p>
+      		<p>get和load方式都    是根据id取得一个记录<br>下边详细说一下get和load的不同，因为有些时候为了对比也会把find加进来。</p>
 <p>1.从返回结果上对比：<br>load方式检索不到的话会抛出org.hibernate.ObjectNotFoundException异常<br>get方法检索不到的话会返回null</p>
 <p>2.从检索执行机制上对比： get方法和find方法都是直接从数据库中检索 而load方法的执行则比较复杂首先查找session的persistent Context中是否有缓存，如果有则直接返回 如果没有则判断是否是lazy，如果不是直接访问数据库检索，查到记录返回，查不到抛出异常 如果是lazy则需要建立代理对象，对象的initialized属性为false，target属性为null 在访问获得的代理对象的属性时,检索数据库，如果找到记录则把该记录的对象复制到代理对象的target上，并将initialized=true，如果找不到就抛出异常。</p>
 <p>3.根本区别说明<br>如果你使用load方法，hibernate认为该id对应的对象（数据库记录）在数据库中是一定存在的，所以它可以放心的使用，它可以放心的使用代理来 延迟加载该对象。在用到对象中的其他属性数据时才查询数据库，但是万一数据库中不存在该记录，那没办法，只能抛异常。所说的load方法抛异常是指在使用 该对象的数据时，数据库中不存在该数据时抛异常，而不是在创建这个对象时(注意：这就是由于“延迟加载”在作怪)。</p>
@@ -211,6 +211,10 @@
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/10/19/WebService/" style="float: left;">
+        ← WebService
+    </a>
     
     
     <a class="pull-right" href="/2016/10/18/hibernate中延时加载存在的问题及解决办法。/">

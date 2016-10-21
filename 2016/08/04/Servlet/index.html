@@ -202,8 +202,7 @@
 <p>四.Servlet生命周期</p>
 <p>默认第一次访问Servlet 创建该对象，<br>Servlet对象销毁，即在tomcat服务器中没有引用。Tomcat服务器关闭。<br>ServletRequest：代表请求 认为内部封装http请求的信息<br>ServletResponse:代表相应，认为内部要封装的相应的信息。</p>
 <p>面试：servlet的生命周期<br>Servlet默认第一次访问的时候创建，服务器关闭的时候销毁<br>Servlet创建时会调用init方法。销毁时会调用的destory方法<br>访问相应的servlet都会调用service方法</p>
-<p>五.客户端要访问服务器上的某个资源<br>首先网页输入相应的地址，<a href="http://localhost:8080/WEB/FirstServlet">http://localhost:8080/WEB/FirstServlet</a><br>访问通过端口找到tomcat服务器，将这个请求封装成http请求发送到客户端 （浏览器封装）<br>请求给Tomcat内核（引擎），内核1.解析请求的资源地址。查找xml配置文件。找到servlet类<br>Xml文件中<servlet-pattern>写错会报404</p>
-<p><serlvet-class>写错报500.类找不到<br>2.创建servlet对象<br>3.创建代表请求的request对象和代表相应的response对象，调用service方法并传递参数。<br>每次访问service都会创建一对新的response和request对象<br>服务器端有相应的servlet(rq,rp)</p>
+<p>五.客户端要访问服务器上的某个资源<br>首先网页输入相应的地址，<a href="http://localhost:8080/WEB/FirstServlet">http://localhost:8080/WEB/FirstServlet</a><br>访问通过端口找到tomcat服务器，将这个请求封装成http请求发送到客户端 （浏览器封装）<br>请求给Tomcat内核（引擎），内核1.解析请求的资源地址。查找xml配置文件。找到servlet类<br>Xml文件中 <servlet-pattern> 写错会报404<br>    <serlvet-class>写错报500.类找不到<br>2.创建servlet对象<br>3.创建代表请求的request对象和代表相应的response对象，调用service方法并传递参数。<br>每次访问service都会创建一对新的response和request对象<br>服务器端有相应的servlet(rq,rp)</p>
 <p>六.Xml配置详解：</p>
 <p><servlet>下<servlet-name>自己定义，但是必须和<serlvet-mapping>中<servlet-name>一致。<serlvet-class>是写当前servlet的全包名。</p>
 <p><serlvet-mapping>中<url-pattern>的配置方式</p>
@@ -217,8 +216,8 @@
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/01/jQuery入门/" style="float: left;">
-        ← jQuery入门
+    <a class="pull-left" href="/2016/09/17/Spring使用注解进行依赖注入/" style="float: left;">
+        ← Spring使用注解进行依赖注入
     </a>
     
     

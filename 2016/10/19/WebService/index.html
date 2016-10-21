@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>jQuery入门 | Summer</title>
+  <title>WebService | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -187,47 +187,185 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-10-01T11:00:37.000Z" itemprop="datePublished">
-          2016-10-01
+      <time datetime="2016-10-19T10:33:05.000Z" itemprop="datePublished">
+          2016-10-19
       </time>
     
 </span>
-                <h1>jQuery入门</h1>
+                <h1>WebService</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="jQuery优势"><a href="#jQuery优势" class="headerlink" title="jQuery优势"></a>jQuery优势</h3><pre><code>轻量级、强大的选择器、DOM封装、可靠的事件处理机制、完善的Ajax、不污染顶级变量、出色的浏览器兼容性、链式操作方式等等。。。
-</code></pre><h3 id="jQuery-语法实例"><a href="#jQuery-语法实例" class="headerlink" title="jQuery 语法实例"></a>jQuery 语法实例</h3><pre><code>$(this).hide() 隐藏当前的 HTML 元素。 
-$(&quot;#test&quot;).hide() 隐藏 id=&quot;test&quot; 的元素。元素选择器！ 
-$(&quot;p&quot;).hide() 隐藏所有 &lt;p&gt; 元素。 CSS选择器。
-$(&quot;.test&quot;).hide() 隐藏所有 class=&quot;test&quot; 的元素。 类选择器！
-</code></pre><h3 id="jQuery-函数"><a href="#jQuery-函数" class="headerlink" title="jQuery 函数"></a>jQuery 函数</h3><pre><code>所有 jQuery 函数位于一个 document ready 函数中。这是为了防止文档在完全加载（就绪）之前运行 jQuery 代码。如果在文档没有完全加载之前就运行函数，操作可能失败。1.试图隐藏一个不存在的元素 2.获得未完全加载的图像的大小 
+      		<h3 id="WebService是一个平台独立，低耦合，自包含，基于可编程的web应用程序。为了跨平台或跨语言而设计的。"><a href="#WebService是一个平台独立，低耦合，自包含，基于可编程的web应用程序。为了跨平台或跨语言而设计的。" class="headerlink" title="WebService是一个平台独立，低耦合，自包含，基于可编程的web应用程序。为了跨平台或跨语言而设计的。"></a>WebService是一个平台独立，低耦合，自包含，基于可编程的web应用程序。为了跨平台或跨语言而设计的。</h3><h3 id="WebService之间的调用使用http协议，传输的数据与格式为xml。所以可以实现跨语言调用，"><a href="#WebService之间的调用使用http协议，传输的数据与格式为xml。所以可以实现跨语言调用，" class="headerlink" title="WebService之间的调用使用http协议，传输的数据与格式为xml。所以可以实现跨语言调用，"></a>WebService之间的调用使用http协议，传输的数据与格式为xml。所以可以实现跨语言调用，</h3><h4 id="特点：通过http-post方式接受客户请求。webService与客户端之间一般使用SOAP（Simple-Object-Access-Pro-tocol）协议传输xml数据。"><a href="#特点：通过http-post方式接受客户请求。webService与客户端之间一般使用SOAP（Simple-Object-Access-Pro-tocol）协议传输xml数据。" class="headerlink" title="特点：通过http post方式接受客户请求。webService与客户端之间一般使用SOAP（Simple Object Access Pro tocol）协议传输xml数据。"></a>特点：通过http post方式接受客户请求。webService与客户端之间一般使用SOAP（Simple Object Access Pro tocol）协议传输xml数据。</h4><h4 id="WSDL-WebService-Description-Language-web服务描述语言。"><a href="#WSDL-WebService-Description-Language-web服务描述语言。" class="headerlink" title="WSDL(WebService Description Language):web服务描述语言。"></a>WSDL(WebService Description Language):web服务描述语言。</h4><pre><code>实质是一个xml文档对象，用于描述当前服务的一些信息。（服务名称，服务发布地址，服务提供的方法，方法的参数类型，方法的返回值类型等。）
+</code></pre><h3 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h3><pre><code>基于jdk1.7发布一个WebService服务。
+服务端发布。
+    1：创建java项目
+    2：创建一个类，加入WebService注解。
+    3：提供一个方法sayHello
+    4：main方法中调用jdk提供的调用发布服务的方法
+    5：访问服务的WSDL文档(服务器发布地址+?wsdl)
+客户端调用
+    jdk中wsimport是jdk自带的，可以根据WSDL文档生成客户端调用代码的工具。
+    无论服务端是用什么语言写的。
+    常用参数：
+        -d&lt;目录&gt; 将生成.class文件。默认参数
+        -s&lt;目录&gt; 将生成.java文件。
+        -p&lt;生成的新包名&gt; -将生成的类放于指定包下
+        （wsdlurl)-http://service:port/service?wsdl  必须的参数
+        例：wsimport -s . http://192.168.0.1/one?wsdl
+    作用：解析wsdl文件，生成客户端本地代码。
+    /**
+     * 1、使用wsimport命令解析wsdl文件生成本地代码
+     * 2、通过本地代码创建一个代理对象
+     * 3、通过代理对象实现远程调用
+     * @author zhaoqx
+     *
+     */
+    public class App {
+        public static void main(String[] args) {
+            HelloServiceService ss = new HelloServiceService();
+            //创建客户端代理对象，用于远程调用
+            HelloService proxy = ss.getHelloServicePort();
+            String ret = proxy.sayHello(&quot;小明&quot;, 10);
+            System.out.println(ret);
+        }
+    }
+</code></pre><h3 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h3><pre><code>apache CXF入门
+支持多种协议：
+•    SOAP1.1,1.2
+•    XML/HTTP
+•    CORBA（Common Object Request Broker Architecture公共对象请求代理体系结构,早期语言使用的WS。C,c++,C#） 
+•    并可以与Spring进行快速无缝的整合
+•    灵活的部署：可以运行在Tomcat,Jboss,Jetty(内置),IBMWS,BeaWL上面。
 
-window.onload=function(){};
-$(document).ready(function(){});
-传统的javaScript必须等页面中所有的内容都加载完毕(包括图片)才能执行function。
-jQuery在页面中所有DOM结构绘制完毕之后就执行，可能DOM元素关联的东西还没有加载完。
-</code></pre><h3 id="jQuery对象和DOM对象。"><a href="#jQuery对象和DOM对象。" class="headerlink" title="jQuery对象和DOM对象。"></a>jQuery对象和DOM对象。</h3><pre><code>DOM(Documents Object Model,文档对象模型)，每一份DOM都可以绘制成一棵树。
-jQuery对象是jQuery对象就是通过jQuery包装DOM后产生的对象。
-</code></pre><p>### </p>
+服务端开发
+    1.创建动态web项目。
+    2.导入CXF想关jar包。
+    3.在web.xml中配置CXF提供的一个Servlet
+    &lt;!--配置CXF提供的Servlet--&gt;
+      &lt;!-- 配置CXF框架提供的Servlet --&gt;
+      &lt;servlet&gt;
+          &lt;servlet-name&gt;cxf&lt;/servlet-name&gt;
+          &lt;servlet-class&gt;org.apache.cxf.transport.servlet.CXFServlet&lt;/servlet-class&gt;
+          &lt;!-- 通过初始化参数指定CXF框架的配置文件位置 --&gt;
+          &lt;init-param&gt;
+              &lt;param-name&gt;config-location&lt;/param-name&gt;
+              &lt;param-value&gt;classpath:cxf.xml&lt;/param-value&gt;
+          &lt;/init-param&gt;
+      &lt;/servlet&gt;
+
+      &lt;servlet-mapping&gt;
+          &lt;servlet-name&gt;cxf&lt;/servlet-name&gt;
+          &lt;url-pattern&gt;/service/*&lt;/url-pattern&gt;
+      &lt;/servlet-mapping&gt;
+      4.在类路径下提供cxf.xml
+      &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+            xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+            xmlns:jaxws=&quot;http://cxf.apache.org/jaxws&quot;
+            xmlns:soap=&quot;http://cxf.apache.org/bindings/soap&quot;
+            xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+                                http://www.springframework.org/schema/beans/spring-beans.xsd
+                                http://cxf.apache.org/bindings/soap 
+                                http://cxf.apache.org/schemas/configuration/soap.xsd
+                                http://cxf.apache.org/jaxws 
+                                http://cxf.apache.org/schemas/jaxws.xsd&quot;&gt;
+
+            &lt;!-- 注册CXF客户端的代理对象，通过spring框架创建这个对象，使用代理对象实现远程调用 --&gt;
+            &lt;jaxws:client id=&quot;myClient&quot; address=&quot;http://192.168.115.113:8080/TheService/service/cxfService?wsdl&quot; serviceClass=&quot;cn.pronfreebook.service.HelloService&quot;&gt;&lt;/jaxws:client&gt;
+        &lt;/beans&gt;
+
+        5.开发一个接口和实现类
+
+        package cn.pronfreebook.service;
+
+        import javax.jws.WebService;
+
+        @WebService
+        public interface HelloService {
+            public String sayHello(String name);
+        }
+
+
+        package cn.pronfreebook.service.impl;
+
+        public class HelloServiceImpl implements cn.pronfreebook.service.HelloService {
+
+            public String sayHello(String name) {
+                System.out.println(&quot;基于CXF开发的服务端sayHello方法被调用了。。。&quot;);
+                return &quot;Hello&quot;+name;
+            }
+
+        }
+
+        6.在xcf.xml中注册服务。
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+        xmlns:jaxws=&quot;http://cxf.apache.org/jaxws&quot;
+        xmlns:soap=&quot;http://cxf.apache.org/bindings/soap&quot;
+        xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://cxf.apache.org/bindings/soap 
+                            http://cxf.apache.org/schemas/configuration/soap.xsd
+                            http://cxf.apache.org/jaxws 
+                            http://cxf.apache.org/schemas/jaxws.xsd&quot;&gt;
+
+            &lt;bean id=&quot;helloService&quot; class=&quot;cn.pronfreebook.service.impl.HelloServiceImpl&quot;/&gt;
+            &lt;jaxws:server  id=&quot;myService&quot; address=&quot;/cxfService&quot;&gt;
+                &lt;jaxws:serviceBean&gt;
+                    &lt;ref bean=&quot;helloService&quot;/&gt;
+                &lt;/jaxws:serviceBean&gt;
+            &lt;/jaxws:server&gt;
+
+        &lt;/beans&gt;
+
+客户端开发
+    方式一：使用jdk提供的wsimport命令生成本地代码完成调用。
+    方式二：使用CXF提供的方式。
+        1：创建Java项目并导入CXF相关jar包
+        2：使用wsimport或者CXF提供wsdl2java生成本地代码，只需要生成接口文件
+        3：将接口复制到项目当中。
+        4：提供spring配置文件，注册客户端代理对象。
+            &lt;!-- 注册CXF客户端的代理对象，通过spring矿建创建这个对象，使用代理对象实现远程调用 --&gt;
+                &lt;jaxws:client id=&quot;myClient&quot; 
+                address=&quot;http://192.168.115.113:8080/TheService/service/cxfService?wsdl&quot;                 serviceClass=&quot;cn.pronfreebook.service.HelloService&quot;&gt;&lt;/jaxws:client&gt;
+        5：读取spring配置文件，创建spring工厂，从工厂中获得代理对象，实现远程调用。
+
+            package cn.pronfreebook.test;
+
+            import org.springframework.context.ApplicationContext;
+            import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+            import cn.pronfreebook.service.HelloService;
+
+            public class App {
+                public static void main(String[] args) {
+                    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;cxf.xml&quot;);
+                    HelloService proxy = (HelloService) ctx.getBean(&quot;myClient&quot;);
+                    String sayHello = proxy.sayHello(&quot;Test&quot;);
+                    System.out.println(sayHello);
+                }
+            }
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/10/Demo/" style="float: left;">
-        ← Demo
+    <a class="pull-left" href="/2016/10/19/BOS物流项目开发/" style="float: left;">
+        ← BOS物流项目开发
     </a>
     
     
-    <a class="pull-right" href="/2016/09/17/Spring使用注解进行依赖注入/">
-        Spring使用注解进行依赖注入 →
+    <a class="pull-right" href="/2016/10/18/Hibernate中get与load方法区分。/">
+        Hibernate中get与load方法区分。 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/10/01/jQuery入门/" data-title="jQuery入门" data-url="http://yoursite.com/2016/10/01/jQuery入门/"></div>
+<div class="ds-thread" data-thread-key="2016/10/19/WebService/" data-title="WebService" data-url="http://yoursite.com/2016/10/19/WebService/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {
