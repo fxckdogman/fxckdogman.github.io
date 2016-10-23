@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Spring使用注解进行依赖注入 | Summer</title>
+  <title>BOS项目物流Maven项目搭建流程 | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -187,42 +187,44 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-09-17T13:14:07.000Z" itemprop="datePublished">
-          2016-09-17
+      <time datetime="2016-10-23T12:27:47.000Z" itemprop="datePublished">
+          2016-10-23
       </time>
     
 </span>
-                <h1>Spring使用注解进行依赖注入</h1>
+                <h1>BOS项目物流Maven项目搭建流程</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>导包4+2+spring-aop<br>为主配置文件导入新的命名空间（dtd约束）</p>
-<p>Spring的application.xml文件当中</p>
-<ol>
-<li><p>开启使用注解代理配置文件<br><context:component-scan base-package="cn.pronfreebook"><br></context:component-scan><br>作用:指定扫描指定包下的所有子孙包类中的注解。<br>2．类中使用注解完成配置<br>将对象注册到容器<br>通用注册：@Component(“User”);</p>
-<pre><code>@Service(“User”);
-@Controller(“User”);
-@Repository(“User”);
-</code></pre><p>修改对象的作用范围（单例、多例）<br>@Scope(scopeName=”prototype”);<br>值类型注入<br>原则上讲值注入可以在成员变量和set方法上。<br>但是在成员变量上注入是通过反射的Field赋值。破坏了封装性。<br>推荐使用在set方法上注入。</p>
-<p>引用类型注入<br>  @Autowired 自动装配<br>单单这一个注释如果遇到多个类型一致的对象，将无法选择具体注入哪个对象。<br>  @Qualifier（“car2”）<br>使用@Qualifier注解告诉Spring自动装配哪个名称的对象</p>
-<p>  @Resource(name=”car”)手动注入，指定注入哪个名称的对象<br>private Car car;<br>3.开启事务（通常在service层）<br>@Transactional</p>
-</li>
-</ol>
-
+      		<h2 id="依赖管理：对jar包的统一管理，节省空间。"><a href="#依赖管理：对jar包的统一管理，节省空间。" class="headerlink" title="依赖管理：对jar包的统一管理，节省空间。"></a>依赖管理：对jar包的统一管理，节省空间。</h2><h3 id="1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml"><a href="#1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml" class="headerlink" title="1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml"></a>1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml</h3><pre><code>bos-utils Maven Module packing:war   子工程 存放工具类、webService接口
+bos-domain Maven Module packing:war     子工程 存放实体类、映射文件
+bos-web Maven Module packing:war     子工程 存放表现层代码、页面、js、css等资源文件
+bos-service Maven Module packing:war     子工程 存放业务层代码
+bos-dao Maven Module packing:war     子工程 存放持久层代码
+</code></pre><h3 id="2-基础设置部分需求分析。"><a href="#2-基础设置部分需求分析。" class="headerlink" title="2.基础设置部分需求分析。"></a>2.基础设置部分需求分析。</h3><pre><code>2.1表数据分析：
+区域表：此功能区域为行政分区区域。
+分区表：区域范围过大，不便管理，区域细分形成分区。
+定区表：定区是物流分区的基本单位。可以将用户信息，取派员信息，分区信息进行关联。
+取派员表：
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/01/jQuery入门/" style="float: left;">
-        ← jQuery入门
+    <a class="pull-left" href="/2016/10/23/JQuery-EasyUI/" style="float: left;">
+        ← JQuery EasyUI
     </a>
     
+    
+    <a class="pull-right" href="/2016/10/23/Reaml/">
+        Reaml →
+    </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/09/17/Spring使用注解进行依赖注入/" data-title="Spring使用注解进行依赖注入" data-url="http://yoursite.com/2016/09/17/Spring使用注解进行依赖注入/"></div>
+<div class="ds-thread" data-thread-key="2016/10/23/BOS项目物流Maven项目搭建/" data-title="BOS项目物流Maven项目搭建流程" data-url="http://yoursite.com/2016/10/23/BOS项目物流Maven项目搭建/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {

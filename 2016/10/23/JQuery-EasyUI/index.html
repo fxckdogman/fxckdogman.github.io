@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2016/8 | Summer</title>
+  <title>JQuery EasyUI | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -75,7 +75,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -181,69 +181,126 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>人生，总有不期而遇的温暖，和生生不息的希望。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-
-
-
-
-<section id="services">
+      
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/08/04/Servlet/">Servlet</a></h4>
-                            
-                            <p><time datetime="2016-08-04T13:12:52.000Z"><a href="/2016/08/04/Servlet/">2016-08-04</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-10-23T12:44:33.000Z" itemprop="datePublished">
+          2016-10-23
+      </time>
+    
+</span>
+                <h1>JQuery EasyUI</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<h3 id="1-下载easyUI开发包。"><a href="#1-下载easyUI开发包。" class="headerlink" title="1.下载easyUI开发包。"></a>1.下载easyUI开发包。</h3><h3 id="2-将easyUI资源文件引入到页面中。"><a href="#2-将easyUI资源文件引入到页面中。" class="headerlink" title="2.将easyUI资源文件引入到页面中。"></a>2.将easyUI资源文件引入到页面中。</h3><pre><code>easyui.css、icon.css、jquery-1.8.3.js、jquery.easyui.min.js
+</code></pre><h3 id="3-简单入门"><a href="#3-简单入门" class="headerlink" title="3.简单入门"></a>3.简单入门</h3><h3 id="3-1-layout页面布局。"><a href="#3-1-layout页面布局。" class="headerlink" title="3.1 layout页面布局。"></a>3.1 layout页面布局。</h3><pre><code>&lt;body class=&quot;easyui-layout&quot;&gt;
+    &lt;!-- 使用div元素描述每个区域 --&gt;
+    &lt;div style=&quot;height: 100px&quot; data-options=&quot;region:&apos;north&apos;&quot;&gt;北部区域&lt;/div&gt;
+    &lt;div style=&quot;width: 200px&quot; data-options=&quot;region:&apos;west&apos;&quot;&gt;西部区域&lt;/div&gt;
+    &lt;div data-options=&quot;region:&apos;center&apos;&quot;&gt;中心区域&lt;/div&gt;
+    &lt;div style=&quot;width: 100px&quot; data-options=&quot;region:&apos;east&apos;&quot;&gt;东部区域&lt;/div&gt;
+    &lt;div style=&quot;height: 50px&quot; data-options=&quot;region:&apos;south&apos;&quot;&gt;南部区域&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h3 id="3-2-accordion折叠面板。"><a href="#3-2-accordion折叠面板。" class="headerlink" title="3.2 accordion折叠面板。"></a>3.2 accordion折叠面板。</h3><pre><code>&lt;!-- accordion折叠面板 fit:true----自适应(填充父容器) --&gt;
+    &lt;div class=&quot;easyui-accordion&quot; data-options=&quot;fit:true&quot;&gt;
+        &lt;!-- 使用子div表示每个面板 --&gt;
+        &lt;div data-options=&quot;iconCls:&apos;icon-cut&apos;&quot; title=&quot;面板一&quot;&gt;内容1&lt;/div&gt;
+        &lt;div title=&quot;面板二&quot;&gt;内容2&lt;/div&gt;
+        &lt;div title=&quot;面板三&quot;&gt;内容3&lt;/div&gt;
+    &lt;/div&gt;
+</code></pre><h3 id="3-3-tabs选项卡面板。"><a href="#3-3-tabs选项卡面板。" class="headerlink" title="3.3 tabs选项卡面板。"></a>3.3 tabs选项卡面板。</h3><pre><code>&lt;!-- tabs选项卡面板 --&gt;
+&lt;div class=&quot;easyui-tabs&quot; data-options=&quot;fit:true&quot;&gt;
+    &lt;!-- 使用子div表示每个面板 --&gt;
+    &lt;div data-options=&quot;iconCls:&apos;icon-cut&apos;&quot; title=&quot;面板一&quot;&gt;内容1&lt;/div&gt;
+    &lt;div data-options=&quot;closable:true&quot; title=&quot;面板二&quot;&gt;内容2&lt;/div&gt;
+    &lt;div title=&quot;面板三&quot;&gt;内容3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h3 id="4-JQuery-EasyUI-动态添加选项卡。"><a href="#4-JQuery-EasyUI-动态添加选项卡。" class="headerlink" title="4.JQuery EasyUI 动态添加选项卡。"></a>4.JQuery EasyUI 动态添加选项卡。</h3><pre><code>方法：add 参数：options 
+Example:
+$(&apos;#mytabs&apos;).tabs({
+        title:&apos;标题&apos;,
+        selected:&apos;false&apos;
+        //...
+    });
+方法：select 选择一个选项卡面板,‘which’参数可以是标题或索引的选项卡面板
+$(&quot;#mytabs&quot;).tabs(&quot;select&quot;,&quot;系统管理&quot;);
+效果：选中当前选中行。
+方法：exists 
+var e = $(&quot;#mytabs&quot;).tabs(&quot;exists&quot;,&quot;系统管理&quot;);
+效果：e为true即选项卡存在。false即不存在。
+</code></pre><h3 id="5-JQuery-ztree插件。"><a href="#5-JQuery-ztree插件。" class="headerlink" title="5.JQuery ztree插件。"></a>5.JQuery ztree插件。</h3><pre><code>5.1页面导入ztree相关文件。
+jquery-1.4.4.min.js、zTreeStyle.css、jquery.ztree.core-3.5.js
+</code></pre><h3 id="5-2使用简单json数据构造ztree。"><a href="#5-2使用简单json数据构造ztree。" class="headerlink" title="5.2使用简单json数据构造ztree。"></a>5.2使用简单json数据构造ztree。</h3><pre><code>&lt;ul id=&quot;tree&quot; class=&quot;ztree&quot;&gt;&lt;/ul&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(function(){
+        //页面加载完成后，执行下列代码，动态创建ztree
+        var setting2 = {
+                        data: {
+                            simpleData: {
+                                enable: true//表明要用简单json数据构造ztree节点
+                                //简单json数据和非简单json数据区别在于构造节点数据时子节点构造方式
+                            }
+                        }
+        };
+        //构造节点数据
+        var zNodes2 = [
+                          {&quot;id&quot;:&quot;1&quot;,&quot;pId&quot;:&quot;2&quot;,&quot;name&quot;:&quot;节点一&quot;},//每个json对象表示一个节点数据
+                          {&quot;id&quot;:&quot;2&quot;,&quot;pId&quot;:&quot;3&quot;,&quot;name&quot;:&quot;节点二&quot;},
+                          //pId节点数据中保存其父节点唯一标识的属性名称
+                          {&quot;id&quot;:&quot;3&quot;,&quot;pId&quot;:&quot;0&quot;,&quot;name&quot;:&quot;节点三&quot;} //id：节点数据中保存唯一标识的属性名称
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>与其临渊羡鱼，不如退而结网。</p>
+                        //使用非简单json数据格式构造ztree
+                        //{&quot;name&quot;:&quot;节点一&quot;,&quot;children&quot;:[{&quot;name&quot;:&quot;节点一_1&quot;}, {&quot;name&quot;:&quot;节点一_2&quot;} ]}
+                      ];
+        //调用API初始化ztree
+        $.fn.zTree.init($(&quot;#ztree&quot;), setting, zNodes);
+
+    });
+&lt;/script&gt;
+</code></pre><h3 id="5-3发送ajax请求获取json构造ztree"><a href="#5-3发送ajax请求获取json构造ztree" class="headerlink" title="5.3发送ajax请求获取json构造ztree"></a>5.3发送ajax请求获取json构造ztree</h3><pre><code>//发送ajax请求，获取json数据
+//jQuery提供 的ajax方法：ajax、post、get、load、getJSON、getScript
+    var url = &quot;${pageContext.request.contextPath}/json/menu.json&quot;;
+        $.post(url,{},function(data){
+            //调用API初始化ztree
+            $.fn.zTree.init($(&quot;#ztree&quot;), setting, data);
+        },&apos;json&apos;);
+    });
+</code></pre><h3 id="5-4使用API为节点绑定事件。"><a href="#5-4使用API为节点绑定事件。" class="headerlink" title="5.4使用API为节点绑定事件。"></a>5.4使用API为节点绑定事件。</h3><pre><code>未完
+</code></pre><h2 id="简单的页面布局以及一些小部件添加方法。"><a href="#简单的页面布局以及一些小部件添加方法。" class="headerlink" title="简单的页面布局以及一些小部件添加方法。"></a>简单的页面布局以及一些小部件添加方法。</h2>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/10/23/BOS项目物流Maven项目搭建/">
+        BOS项目物流Maven项目搭建流程 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/10/23/JQuery-EasyUI/" data-title="JQuery EasyUI" data-url="http://yoursite.com/2016/10/23/JQuery-EasyUI/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 

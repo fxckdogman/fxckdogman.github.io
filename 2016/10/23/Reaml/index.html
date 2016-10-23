@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Servlet | Summer</title>
+  <title>Reaml | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -187,44 +187,35 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-08-04T13:12:52.000Z" itemprop="datePublished">
-          2016-08-04
+      <time datetime="2016-10-23T10:37:55.000Z" itemprop="datePublished">
+          2016-10-23
       </time>
     
 </span>
-                <h1>Servlet</h1>
+                <h1>Reaml</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>Servlet（Service Applte）是运行在服务器端的Java小程序，由sun公司提供一套规范（接口），用来处理客户端请求、响应给浏览器的动态资源。Servlet的实质就是java代码，通过java的API    动态的向客户端输出内容。</p>
-<p>一．Servlet快速入门<br>    实现步骤：<br>    1）创建类实现Servlet接口<br>    2）覆盖尚未实现的方法—service方法<br>    3）在web.xml进行servlet的配置<br>二.servlet规范：包含三个技术点<br>    1）servlet技术<br>    2）filter技术—过滤器<br>    3）listener技术—监听器<br>三.API<br>    Servlet中方法<br>    service:每次访问都会执行<br>    init（SerlvetConfig serlvetConfig）:servlet对象创建时执行。<br>        serlvetConfig作用：<br>        1获得该servlet对象的配置信息<br>            例如：xml配置文件中的servlet-name serlvetConfig.getServletName();等<br>        2.获得servlet的初始化参数<br>        3.获得servletContext对象  config.getServletContext();<br>    destory：servlet对象销毁的时候执行。</p>
-<p>通过Demo发现访问相应的servlet路径，service方法会被调用。但是方法不是静态，肯定是对象调用， 即FirstServlet对象调用service方法，我们并没有手动new对象，就表明我们访问服务器时，服务器帮我们创建对象并调用相应的方法。</p>
-<p>四.Servlet生命周期</p>
-<p>默认第一次访问Servlet 创建该对象，<br>Servlet对象销毁，即在tomcat服务器中没有引用。Tomcat服务器关闭。<br>ServletRequest：代表请求 认为内部封装http请求的信息<br>ServletResponse:代表相应，认为内部要封装的相应的信息。</p>
-<p>面试：servlet的生命周期<br>Servlet默认第一次访问的时候创建，服务器关闭的时候销毁<br>Servlet创建时会调用init方法。销毁时会调用的destory方法<br>访问相应的servlet都会调用service方法</p>
-<p>五.客户端要访问服务器上的某个资源<br>首先网页输入相应的地址，<a href="http://localhost:8080/WEB/FirstServlet">http://localhost:8080/WEB/FirstServlet</a><br>访问通过端口找到tomcat服务器，将这个请求封装成http请求发送到客户端 （浏览器封装）<br>请求给Tomcat内核（引擎），内核1.解析请求的资源地址。查找xml配置文件。找到servlet类<br>Xml文件中 <servlet-pattern> 写错会报404<br>    <serlvet-class>写错报500.类找不到<br>2.创建servlet对象<br>3.创建代表请求的request对象和代表相应的response对象，调用service方法并传递参数。<br>每次访问service都会创建一对新的response和request对象<br>服务器端有相应的servlet(rq,rp)</p>
-<p>六.Xml配置详解：</p>
-<p><servlet>下<servlet-name>自己定义，但是必须和<serlvet-mapping>中<servlet-name>一致。<serlvet-class>是写当前servlet的全包名。</p>
-<p><serlvet-mapping>中<url-pattern>的配置方式</p>
-<ol>
-<li>完全匹配。访问与配置完全相同</li>
-<li>目录匹配./a/b/*。只要访问路径是/a/b/  后面有或没有任意都可以匹配到</li>
-<li>扩展名匹配 <em>.扩展名。只有后缀名符合就能匹配<br>注意 ：2.3不可以混用 /a/b/</em>.c</li>
-</ol>
+      		<h3 id="Apache-shiro是Java安全框架。"><a href="#Apache-shiro是Java安全框架。" class="headerlink" title="Apache shiro是Java安全框架。"></a>Apache shiro是Java安全框架。</h3><p>基于shiro框架实现认证操作<br>    1.将shiro框架引入项目中，在pron.xml文件中加入shiro依赖<br>    2.web.xml中配置由Spring提供的用于整合shiro框架的过滤器。<br>    3.Spring配置文件中配置过滤器工厂，用于创建shiro框架的过滤器。<br>    4.WEB层登陆方法更改为shiro框架提供的认证方法。<br>    5.自定义继承Authorization的realm类，实现AuthorizationInfo(认证)，Authentication(授权)方法。<br>    在认证方法中完成User user = findUserByUsername();方法<br>    6.将自定义的realm注册到spring配置文件中，由Spring创建realm对象注入给安全管理器。</p>
+<h3 id="Reanlm类"><a href="#Reanlm类" class="headerlink" title="Reanlm类"></a>Reanlm类</h3><p>Realm类似于Oracle系统中经常使用的role。在Oracle系统中，一个role对应着对一组特定资源的访问权限，具有特定role的用户只能访问role中指定的资源。Tomcat使用Realm使某些特定的用户组具有访问某些特定的Web应用的权限，而没有权限的用户不能访问这个应用。<br>Realm类似于Unix里面的group。在Unix中，一个group对应着系统的一定资源，某个group不能访问不属于它的资源。Tomcat用Realm来对不同的应用（类似系统资源）赋给不同的用户（类似group）。没有权限的用户则不能访问这个应用。</p>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/09/17/Spring使用注解进行依赖注入/" style="float: left;">
-        ← Spring使用注解进行依赖注入
+    <a class="pull-left" href="/2016/10/23/BOS项目物流Maven项目搭建/" style="float: left;">
+        ← BOS项目物流Maven项目搭建流程
     </a>
     
+    
+    <a class="pull-right" href="/2016/10/19/Java代码编程格式规范/">
+        Java代码编程格式规范 →
+    </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/08/04/Servlet/" data-title="Servlet" data-url="http://yoursite.com/2016/08/04/Servlet/"></div>
+<div class="ds-thread" data-thread-key="2016/10/23/Reaml/" data-title="Reaml" data-url="http://yoursite.com/2016/10/23/Reaml/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {
