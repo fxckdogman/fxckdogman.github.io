@@ -196,8 +196,46 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="持久层代码抽取"><a href="#持久层代码抽取" class="headerlink" title="持久层代码抽取"></a>持久层代码抽取</h3><p>首先要明确继承与实现的区别。（父类与接口）<a href="http://pronfreebook.cn/2016/06/04/Java-extends">Java-extends</a> </p>
-<p>持久层抽取：<br>    思路：将使用频率较高的一些方法封装至一个泛型接口IBaseDao中，在BaseDaoImpl泛型类中实现所有方法。<br>IUserDao接口通过实现IBaseDao<T>接口，可以获得IBaseDao中所有的抽象方法且不必再次实现。<br>BaseDaoImpl<T>实现类继承IBaseDao<T>接口并实现接口中所有的方法，<br>这样BaseDaoImpl<T>内部有常用方法的实现，任意一个类去继承即可获得所有的已实现的方法。<br>UserDao<User>通过实现IUserDao接口可以获得IBaseDao中那些常用的方法以及自身需要实现的方法，再继承BaseDaoImpl获得要实现方法的实现。UserDao中就只需要实现IUserDao中另外扩展的方法了。<br>    好处：代码重用性、降低耦合性。<br>    例：<br>    public interface IBaseDao<T> {};内部定义常用的抽象方法。<br>    public class BaseDaoImpl<T> implements IBaseDao<T>{};实现IBaseDao接口重写所有方法。<br>    public interface IUserDao extends IBaseDao<User>{};IUserDao类继承IBaseDao获得抽象方法;<br>    public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {}<br>    UserDaoImpl实现IUserDao获得父类IUserDao通过继承IBaseDao获得常用抽象方法，又继承BaseDaoImpl获得常用方法的实现。</p>
+      		<h2 id="表现层代码抽取"><a href="#表现层代码抽取" class="headerlink" title="表现层代码抽取"></a>表现层代码抽取</h2><p>首先要明确继承与实现的区别。（类与接口）<a href="http://pronfreebook.cn/2016/06/04/Java-extends">Java-extends</a> </p>
+<h3 id="思路：BaseAction继承ActionSupport。实现ModelDriven实现重写方法。子类直接继承获得页面传入的model对象。"><a href="#思路：BaseAction继承ActionSupport。实现ModelDriven实现重写方法。子类直接继承获得页面传入的model对象。" class="headerlink" title="思路：BaseAction继承ActionSupport。实现ModelDriven实现重写方法。子类直接继承获得页面传入的model对象。"></a>思路：BaseAction继承ActionSupport。实现ModelDriven<T>实现重写方法。子类直接继承获得页面传入的model对象。</h3><h3 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h3><pre><code>//获取当前类的类型。
+public class BaseAction&lt;T&gt; extends ActionSupport implements ModelDriven&lt;T&gt; {
+    //模型对象
+    private T model;
+    public T getModel() {
+        return model;
+    }
+
+    //在构造方法中动态获取实体类型，通过反射创建model对象
+    public BaseAction() {
+        ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        //获得BaseAction上声明的泛型数组
+        Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
+        Class&lt;T&gt; entityClass = (Class&lt;T&gt;) actualTypeArguments[0];
+        //通过反射创建对象
+        try {
+            model = entityClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><h2 id="持久层代码抽取"><a href="#持久层代码抽取" class="headerlink" title="持久层代码抽取"></a>持久层代码抽取</h2><h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>将使用频率较高的一些方法封装至一个泛型接口IBaseDao中，在BaseDaoImpl泛型类中实现所有方法。<br>IUserDao接口通过实现IBaseDao<T>接口，可以获得IBaseDao中所有的抽象方法且不必再次实现。<br>BaseDaoImpl<T>实现类继承IBaseDao<T>接口并实现接口中所有的方法，<br>这样BaseDaoImpl<T>内部有常用方法的实现，任意一个类去继承即可获得所有的已实现的方法。<br>UserDao<User>通过实现IUserDao接口可以获得IBaseDao中那些常用的方法以及自身需要实现的方法，再继承BaseDaoImpl获得要实现方法的实现。UserDao中就只需要实现IUserDao中另外扩展的方法了。</p>
+<h3 id="例：-1"><a href="#例：-1" class="headerlink" title="例："></a>例：</h3><pre><code>public interface IBaseDao&lt;T&gt; {};内部定义常用的抽象方法。
+public class BaseDaoImpl&lt;T&gt; implements IBaseDao&lt;T&gt;{};实现IBaseDao接口重写所有方法。
+public interface IUserDao extends IBaseDao&lt;User&gt;{};IUserDao类继承IBaseDao获得抽象方法;
+public class UserDaoImpl extends BaseDaoImpl&lt;User&gt; implements IUserDao {}
+UserDaoImpl实现IUserDao获得父类IUserDao通过继承IBaseDao获得的常用抽象方法，又继承BaseDaoImpl获得常用方法的实现。
+</code></pre><h3 id="获得泛型类的方法"><a href="#获得泛型类的方法" class="headerlink" title="获得泛型类的方法"></a>获得泛型类的方法</h3><pre><code>public Class&lt;T&gt; entityClass;
+public BaseDaoImpl() {
+    //获取父类类型的类文件
+    ParameterizedType superclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+    //获取父类泛型括号中的泛型数组
+    Type[] actualTypeArguments = superclass.getActualTypeArguments();
+    entityClass = (Class&lt;T&gt;) actualTypeArguments[0];
+}
+</code></pre><h3 id="好处：代码重用性、降低耦合性。"><a href="#好处：代码重用性、降低耦合性。" class="headerlink" title="好处：代码重用性、降低耦合性。"></a>好处：代码重用性、降低耦合性。</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
