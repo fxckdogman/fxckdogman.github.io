@@ -198,24 +198,26 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>导包4+2+spring-aop<br>为主配置文件导入新的命名空间（dtd约束）</p>
 <p>Spring的application.xml文件当中</p>
-<ol>
-<li><p>开启使用注解代理配置文件<br><context:component-scan base-package="cn.pronfreebook"><br></context:component-scan><br>作用:指定扫描指定包下的所有子孙包类中的注解。<br>2．类中使用注解完成配置<br>将对象注册到容器<br>通用注册：@Component(“User”);</p>
-<pre><code>@Service(“User”);
-@Controller(“User”);
-@Repository(“User”);
-</code></pre><p>修改对象的作用范围（单例、多例）<br>@Scope(scopeName=”prototype”);<br>值类型注入<br>原则上讲值注入可以在成员变量和set方法上。<br>但是在成员变量上注入是通过反射的Field赋值。破坏了封装性。<br>推荐使用在set方法上注入。</p>
-<p>引用类型注入<br>  @Autowired 自动装配<br>单单这一个注释如果遇到多个类型一致的对象，将无法选择具体注入哪个对象。<br>  @Qualifier（“car2”）<br>使用@Qualifier注解告诉Spring自动装配哪个名称的对象</p>
-<p>  @Resource(name=”car”)手动注入，指定注入哪个名称的对象<br>private Car car;<br>3.开启事务（通常在service层）<br>@Transactional</p>
-</li>
-</ol>
+<h3 id="1-开启使用注解代理配置文件"><a href="#1-开启使用注解代理配置文件" class="headerlink" title="1.开启使用注解代理配置文件"></a>1.开启使用注解代理配置文件</h3><pre><code>&lt;context:component-scan base-package=&quot;cn.pronfreebook&quot;&gt;
+&lt;/context:component-scan&gt;
+</code></pre><p>作用:指定扫描指定包下的所有子孙包类中的注解。<br>2．类中使用注解完成配置<br>    将对象注册到容器<br>    通用注册：@Component(“User”);<br>            @Service(“User”);<br>            @Controller(“User”);<br>            @Repository(“User”);<br>    修改对象的作用范围（单例、多例）<br>    @Scope(scopeName=”prototype”);<br>    值类型注入<br>    原则上讲值注入可以在成员变量和set方法上。<br>    但是在成员变量上注入是通过反射的Field赋值。破坏了封装性。<br>    推荐使用在set方法上注入。</p>
+<pre><code>引用类型注入
+    @Autowired 自动装配
+单单这一个注释如果遇到多个类型一致的对象，将无法选择具体注入哪个对象。
+    @Qualifier（“car2”）
+使用@Qualifier注解告诉Spring自动装配哪个名称的对象
+
+    @Resource(name=”car”)手动注入，指定注入哪个名称的对象
+private Car car;
+</code></pre><p>3.开启事务（通常在service层）<br>    @Transactional</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/09/29/Oracle入门/" style="float: left;">
-        ← Oracle入门
+    <a class="pull-left" href="/2016/09/23/SSH-CRM/" style="float: left;">
+        ← SSH-CRM
     </a>
     
     
