@@ -196,15 +196,16 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="Apache-shiro是Java安全框架。"><a href="#Apache-shiro是Java安全框架。" class="headerlink" title="Apache shiro是Java安全框架。"></a>Apache shiro是Java安全框架。</h3><p>基于shiro框架实现认证操作<br>    1.将shiro框架引入项目中，在pron.xml文件中加入shiro依赖<br>    2.web.xml中配置由Spring提供的用于整合shiro框架的过滤器。<br>    3.Spring配置文件中配置过滤器工厂，用于创建shiro框架的过滤器。<br>    4.WEB层登陆方法更改为shiro框架提供的认证方法。<br>    5.自定义继承Authorization的Realm类，实现AuthorizationInfo(认证)，Authentication(授权)方法。<br>    在认证方法中完成User user = findUserByUsername();方法<br>    6.将自定义的realm类注册到Spring配置文件中，由Spring创建Realm对象注入给安全管理器。</p>
+      		<h3 id="Apache-shiro是Java安全框架。"><a href="#Apache-shiro是Java安全框架。" class="headerlink" title="Apache shiro是Java安全框架。"></a>Apache shiro是Java安全框架。</h3><h3 id="基于shiro框架实现认证操作"><a href="#基于shiro框架实现认证操作" class="headerlink" title="基于shiro框架实现认证操作"></a>基于shiro框架实现认证操作</h3><p>1.将shiro框架引入项目中，在pron.xml文件中加入shiro依赖<br>2.web.xml中配置由Spring提供的用于整合shiro框架的过滤器。<br>3.Spring配置文件中配置过滤器工厂，用于创建shiro框架的过滤器。<br>4.WEB层登陆方法更改为shiro框架提供的认证方法。<br>5.自定义继承Authorization的Realm类，实现AuthorizationInfo(认证)，Authentication(授权)方法。<br>在认证方法中完成User user = findUserByUsername();方法<br>6.将自定义的realm类注册到Spring配置文件中，由Spring创建Realm对象注入给安全管理器。</p>
+<h3 id="shiro框架提供的权限控制方式。"><a href="#shiro框架提供的权限控制方式。" class="headerlink" title="shiro框架提供的权限控制方式。"></a>shiro框架提供的权限控制方式。</h3><p>1.URL拦截实现权限控制。(在Spring配置文件中配置)。<br>2.方法注解实现权限控制。(在Action的方法上进行配置。)<br>3.页面标签实现权限控制。(在jsp页面中配置)<br>4.代码级别实现权限控制。(在Action的方法通过代码实现)</p>
 <h3 id="Reanlm类"><a href="#Reanlm类" class="headerlink" title="Reanlm类"></a>Reanlm类</h3><p>Realm类似于Oracle系统中经常使用的role。在Oracle系统中，一个role对应着对一组特定资源的访问权限，具有特定role的用户只能访问role中指定的资源。Tomcat使用Realm使某些特定的用户组具有访问某些特定的Web应用的权限，而没有权限的用户不能访问这个应用。<br>Realm类似于Unix里面的group。在Unix中，一个group对应着系统的一定资源，某个group不能访问不属于它的资源。Tomcat用Realm来对不同的应用（类似系统资源）赋给不同的用户（类似group）。没有权限的用户则不能访问这个应用。</p>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/23/BOS项目物流Maven项目搭建/" style="float: left;">
-        ← BOS项目物流Maven项目搭建流程
+    <a class="pull-left" href="/2016/10/23/JQuery-EasyUI/" style="float: left;">
+        ← JQuery EasyUI
     </a>
     
     
