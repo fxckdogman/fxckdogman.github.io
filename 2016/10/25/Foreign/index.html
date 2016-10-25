@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>BOS-Filter | Summer</title>
+  <title>Foreign Key | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -187,44 +187,18 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-10-25T08:35:10.000Z" itemprop="datePublished">
+      <time datetime="2016-10-25T11:38:39.000Z" itemprop="datePublished">
           2016-10-25
       </time>
     
 </span>
-                <h1>BOS-Filter</h1>
+                <h1>Foreign Key</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="使用过滤器实现用户未登录自动跳转到登陆界面功能。"><a href="#使用过滤器实现用户未登录自动跳转到登陆界面功能。" class="headerlink" title="使用过滤器实现用户未登录自动跳转到登陆界面功能。"></a>使用过滤器实现用户未登录自动跳转到登陆界面功能。</h3><h3 id="strtus2中为我们提供了三种创建拦截器的方法"><a href="#strtus2中为我们提供了三种创建拦截器的方法" class="headerlink" title="strtus2中为我们提供了三种创建拦截器的方法"></a>strtus2中为我们提供了三种创建拦截器的方法</h3><pre><code>1.实现Interceptor，它随项目的启动而创建，随项目的关闭而销毁。有较多的方法需要实现。
-2.继承AbstractInterceptor。stract2帮我们空实现了init和destory方法，只需要实现intercept。
-3.继承MethodFilterInterceptor，只需实现doIntercept。且可以定制拦截或者不拦截。
-</code></pre><h3 id="编写拦截器类。"><a href="#编写拦截器类。" class="headerlink" title="编写拦截器类。"></a>编写拦截器类。</h3><pre><code>1.自定义拦截器类继承MethodFilterInterceptor
-2.实现doIntercept(ActionInvocation invocation);方法。
-3.方法内查询Session中是否存在登陆的User。进行跳转登陆页面和放行操作。
-</code></pre><h3 id="配置拦截器"><a href="#配置拦截器" class="headerlink" title="配置拦截器"></a>配置拦截器</h3><h3 id="struts2中配置"><a href="#struts2中配置" class="headerlink" title="struts2中配置"></a>struts2中配置</h3><pre><code>&lt;intercepters&gt;
-    &lt;!--注册自定义拦截器--&gt;
-    &lt;intercepter name=&quot;myInterceptor&quot; class=&quot;自定义类全包名&quot;&gt;
-        &lt;!--指定哪些方法不需要拦截(也可以指定只拦截哪些方法)--&gt;
-        &lt;param name=&quot;excludeMethods&quot;&gt;login&lt;/param&gt;
-    &lt;/intercepter&gt;
-    &lt;!--定义拦截器栈--&gt;
-    &lt;interceptor-stack name=&quot;myStack&quot;&gt;
-        &lt;!--放在默认拦截器之前--&gt;
-        &lt;interceptor-ref name=&quot;myInterceptor&quot;&gt;&lt;/interceptor-ref&gt;
-        &lt;!--引用默认拦截器--&gt;
-        &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
-    &lt;/interceptor-stack&gt;
-    &lt;!--全局结果集定义--&gt;
-&lt;/intercepters&gt;
-&lt;default-interceptor-ref name=&quot;myStack&quot;&gt;
+      		<h3 id="Foreign-Key：外键"><a href="#Foreign-Key：外键" class="headerlink" title="Foreign Key：外键"></a>Foreign Key：外键</h3><h4 id="作用：控制数据库中数据的数据完整性。"><a href="#作用：控制数据库中数据的数据完整性。" class="headerlink" title="作用：控制数据库中数据的数据完整性。"></a>作用：控制数据库中数据的数据完整性。</h4><p>说到外键，不得不提到父表与子表。怎么区分父表(一方),子表(多方)。<br>子表，父表的定义：<br>拥有外键的表是子表。主键被其它表引用的表是父表。换句话说：因为父表的标识被很多个子表中的记录引用，所以叫父表。拥有外键关系，并且可以随便删除数据，不影响其它表的数据的那个表叫子表。</p>
+<p>使用的时候谁做为谁的外键，主要从以下两点考虑：<br>1.删除是如何相互影响的，删除记录受约束的那个是父表，不受约束的那个是子表；<br>2.记录必须先存在的是父表；</p>
 
-
-&lt;!--为Action单独指定拦截器--&gt;
-&lt;action name=&quot;DemoAction&quot; class=&quot;&quot; method=&quot;&quot;&gt;
-    &lt;interceptor-ref name=&quot;myStack&quot;&gt;&lt;/interceptor-ref&gt;
-&lt;action&gt;
-</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
@@ -238,7 +212,7 @@
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/10/25/BOS-Filter/" data-title="BOS-Filter" data-url="http://yoursite.com/2016/10/25/BOS-Filter/"></div>
+<div class="ds-thread" data-thread-key="2016/10/25/Foreign/" data-title="Foreign Key" data-url="http://yoursite.com/2016/10/25/Foreign/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {

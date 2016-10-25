@@ -196,7 +196,35 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		
+      		<h3 id="strtus2中为我们提供了三种创建拦截器的方法"><a href="#strtus2中为我们提供了三种创建拦截器的方法" class="headerlink" title="strtus2中为我们提供了三种创建拦截器的方法"></a>strtus2中为我们提供了三种创建拦截器的方法</h3><pre><code>1.实现Interceptor，它随项目的启动而创建，随项目的关闭而销毁。有较多的方法需要实现。
+2.继承AbstractInterceptor。stract2帮我们空实现了init和destory方法，只需要实现intercept。
+3.继承MethodFilterInterceptor，只需实现doIntercept。且可以定制拦截或者不拦截。
+</code></pre><h3 id="编写拦截器类。"><a href="#编写拦截器类。" class="headerlink" title="编写拦截器类。"></a>编写拦截器类。</h3><pre><code>1.自定义拦截器类继承MethodFilterInterceptor
+2.实现doIntercept(ActionInvocation invocation);方法。
+3.方法内查询Session中是否存在登陆的User。进行跳转登陆页面和放行操作。
+</code></pre><h3 id="配置拦截器"><a href="#配置拦截器" class="headerlink" title="配置拦截器"></a>配置拦截器</h3><h3 id="struts2中配置"><a href="#struts2中配置" class="headerlink" title="struts2中配置"></a>struts2中配置</h3><pre><code>&lt;intercepters&gt;
+    &lt;!--注册自定义拦截器--&gt;
+    &lt;intercepter name=&quot;myInterceptor&quot; class=&quot;自定义类全包名&quot;&gt;
+        &lt;!--指定哪些方法不需要拦截(也可以指定只拦截哪些方法)--&gt;
+        &lt;param name=&quot;excludeMethods&quot;&gt;login&lt;/param&gt;
+    &lt;/intercepter&gt;
+    &lt;!--定义拦截器栈--&gt;
+    &lt;interceptor-stack name=&quot;myStack&quot;&gt;
+        &lt;!--放在默认拦截器之前--&gt;
+        &lt;interceptor-ref name=&quot;myInterceptor&quot;&gt;&lt;/interceptor-ref&gt;
+        &lt;!--引用默认拦截器--&gt;
+        &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
+    &lt;/interceptor-stack&gt;
+    &lt;!--全局结果集定义--&gt;
+&lt;/intercepters&gt;
+&lt;default-interceptor-ref name=&quot;myStack&quot;&gt;
+
+
+&lt;!--为Action单独指定拦截器--&gt;
+&lt;action name=&quot;DemoAction&quot; class=&quot;&quot; method=&quot;&quot;&gt;
+    &lt;interceptor-ref name=&quot;myStack&quot;&gt;&lt;/interceptor-ref&gt;
+&lt;action&gt;
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
