@@ -225,7 +225,7 @@ public class BaseAction&lt;T&gt; extends ActionSupport implements ModelDriven&lt
 public class BaseDaoImpl&lt;T&gt; implements IBaseDao&lt;T&gt;{};实现IBaseDao接口重写所有方法。
 public interface IUserDao extends IBaseDao&lt;User&gt;{};IUserDao类继承IBaseDao获得抽象方法;
 public class UserDaoImpl extends BaseDaoImpl&lt;User&gt; implements IUserDao {}
-UserDaoImpl实现IUserDao获得父类IUserDao通过继承IBaseDao获得的常用抽象方法，又继承BaseDaoImpl获得常用方法的实现。
+UserDaoImpl实现IUserDao,获得父类IUserDao通过继承IBaseDao,获得的常用抽象方法，又继承BaseDaoImpl获得常用方法的实现。
 </code></pre><h3 id="获得泛型类的方法"><a href="#获得泛型类的方法" class="headerlink" title="获得泛型类的方法"></a>获得泛型类的方法</h3><pre><code>public Class&lt;T&gt; entityClass;
 public BaseDaoImpl() {
     //获取父类类型的类文件
