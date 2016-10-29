@@ -195,7 +195,8 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		
+      		<p>一.BOS项目登陆。<br>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。<br>2.创建UserAction.提供login方法。<br>    常见的登陆功能实现方法。<br>a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。<br>b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。<br>c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，<br>存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。<br>二.BOS项目注销用户<br>session失效ServletActionContext.getRequest().getSession().invalidate();<br>三.BOS项目修改密码</p>
+
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
