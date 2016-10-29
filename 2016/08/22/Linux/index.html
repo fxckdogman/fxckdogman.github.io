@@ -195,7 +195,9 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		
+      		<p>Linux</p>
+<p>常用目录：<br>/ 文件系统的入口，最高一级的目录。<br>/bin<br>/etc 系统管理和配置文件<br>/home 用户主目录的基点<br>/usr<br>/opt<br>/proc<br>/<br>/<br>/<br>/<br>/</p>
+<p>1.安装虚拟机，虚拟机中装入Linux系统。<br>2.使用远程连接工具SSH Secure，将所需的安装包传入Linux系统。<br>    关于远程工具乱码的解决：<br>使用远程工具进行连接时，如果linux有中文文件或目录，显示时会出现乱码，原因是linux编码是UTF-8，而远程工具默认是当前系统本地编码即GBK。所以解决方案是统一两者编码就OK了，但是该SSH Secure工具不能设置编码，所以通过修改linux的系统编码的方式进行统一编码。<br>在linux的/etc/sysconfig目录下有一个i18n的文件代表linux的系统编码</p>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
