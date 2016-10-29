@@ -197,7 +197,8 @@
         <div class="col-md-8 col-md-offset-2">
       		<h3 id="一-BOS项目登陆。"><a href="#一-BOS项目登陆。" class="headerlink" title="一.BOS项目登陆。"></a>一.BOS项目登陆。</h3><p>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。<br>2.创建UserAction.提供login方法。<br>    常见的登陆功能实现方法。<br>a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。<br>b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。<br>c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，<br>存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。</p>
 <h3 id="二-BOS项目注销用户"><a href="#二-BOS项目注销用户" class="headerlink" title="二.BOS项目注销用户"></a>二.BOS项目注销用户</h3><p>session失效ServletActionContext.getRequest().getSession().invalidate();</p>
-<h3 id="三-BOS项目修改密码"><a href="#三-BOS项目修改密码" class="headerlink" title="三.BOS项目修改密码"></a>三.BOS项目修改密码</h3><h3 id="技术点1-ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。"><a href="#技术点1-ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。" class="headerlink" title="技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。"></a>技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。</h3><pre><code>Action中定义初始值为1的flag。将调用service层的方法放入try块中，如果有异常抛出（修改密码失败）
+<h3 id="三-BOS项目修改密码"><a href="#三-BOS项目修改密码" class="headerlink" title="三.BOS项目修改密码"></a>三.BOS项目修改密码</h3><pre><code>技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。
+Action中定义初始值为1的flag。将调用service层的方法放入try块中，如果有异常抛出（修改密码失败）
 catch块中将flag值改为0。
 
 技术点.2xml中定义查询语句，Dao层调用。
@@ -217,13 +218,21 @@ b).在User.hbm.xml中定义更新语句
 &lt;query name=&quot;user.editpassword&quot;&gt;
         UPDATE User SET password = ? WHERE id = ?
 &lt;/query&gt;
-</code></pre><h3 id="四-取派员修改"><a href="#四-取派员修改" class="headerlink" title="四.取派员修改"></a>四.取派员修改</h3>
+</code></pre><h3 id="四-取派员修改"><a href="#四-取派员修改" class="headerlink" title="四.取派员修改"></a>四.取派员修改</h3><pre><code>思路：页面使用doDblClickRow(rowIndex, rowData){}方法获取当前双击选中行提交至后台，
+form(&quot;load&quot;，rowData)中load属性可以直接将当前用户数据回显。
+Action中根据rowData查询出的取派员对象将页面可以更改的属性进行覆盖不影响某些并不能修改的属性。
+</code></pre><h3 id="五-combobox下拉框查询显示区域数据。"><a href="#五-combobox下拉框查询显示区域数据。" class="headerlink" title="五.combobox下拉框查询显示区域数据。"></a>五.combobox下拉框查询显示区域数据。</h3><pre><code>&lt;input class=&quot;easy-combobox&quot; name=&quot;region.id&quot; data-options=&quot;valueField:&apos;id&apos;,textField:&apos;name&apos;,mode:&apos;remote&apos;,url:&apos;&apos;&quot;&gt;
+mode属性:定义了当文本改变时如何加载列表数据。设置为&quot;remote&quot;。如果下拉列表框，则从服务器加载。当设置为&quot;remot&quot;模式下，输入框文本将被发送的http请求参数名为&quot;q&quot;服务器来检索新数据。
+思路：这个属性表明我们设置为remote，在下拉框的输入框中输入内容会被命名为q发送到我们所设定的url中。
+Action属性驱动接收q并判断，为空查询所有数据。不为空findByQ。
+Dao层实现模糊查询方法，将所有会展示的数据都进行模糊查询。即可实现输入的无论是地区、省份、城市、简码、邮编都可以匹配。
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/29/ServletActionContext与ActionContext/" style="float: left;">
+    <a class="pull-left" href="/2016/10/29/Java四大域对象/" style="float: left;">
         ← ServletActionContext与ActionContext
     </a>
     
