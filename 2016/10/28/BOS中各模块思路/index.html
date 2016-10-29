@@ -195,8 +195,29 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>一.BOS项目登陆。<br>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。<br>2.创建UserAction.提供login方法。<br>    常见的登陆功能实现方法。<br>a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。<br>b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。<br>c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，<br>存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。<br>二.BOS项目注销用户<br>session失效ServletActionContext.getRequest().getSession().invalidate();<br>三.BOS项目修改密码</p>
+      		<h3 id="一-BOS项目登陆。"><a href="#一-BOS项目登陆。" class="headerlink" title="一.BOS项目登陆。"></a>一.BOS项目登陆。</h3><p>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。<br>2.创建UserAction.提供login方法。<br>    常见的登陆功能实现方法。<br>a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。<br>b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。<br>c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，<br>存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。</p>
+<h3 id="二-BOS项目注销用户"><a href="#二-BOS项目注销用户" class="headerlink" title="二.BOS项目注销用户"></a>二.BOS项目注销用户</h3><p>session失效ServletActionContext.getRequest().getSession().invalidate();</p>
+<h3 id="三-BOS项目修改密码"><a href="#三-BOS项目修改密码" class="headerlink" title="三.BOS项目修改密码"></a>三.BOS项目修改密码</h3><h3 id="技术点1-ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。"><a href="#技术点1-ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。" class="headerlink" title="技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。"></a>技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。</h3><pre><code>Action中定义初始值为1的flag。将调用service层的方法放入try块中，如果有异常抛出（修改密码失败）
+catch块中将flag值改为0。
 
+技术点.2xml中定义查询语句，Dao层调用。
+a).service中提供批量删除方法
+取派员批量删除 逻辑删除，将deltag改为1
+public void deleteBatch(String ids) {
+    if(StringUtils.isNotBlank(ids)){
+        //将页面通过，拼接传入的字符串进行切割循环获得每个取派员id.
+        String[] staffIds = ids.split(&quot;,&quot;);
+        for (String id : staffIds) {
+            //executeUpdate方法中第个参数传入xml中定义&lt;query&gt;中的name。
+            staffDao.executeUpdate(&quot;staff.delete&quot;, id);
+        }
+    }
+}
+b).在User.hbm.xml中定义更新语句
+&lt;query name=&quot;user.editpassword&quot;&gt;
+        UPDATE User SET password = ? WHERE id = ?
+&lt;/query&gt;
+</code></pre><h3 id="四-取派员修改"><a href="#四-取派员修改" class="headerlink" title="四.取派员修改"></a>四.取派员修改</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
