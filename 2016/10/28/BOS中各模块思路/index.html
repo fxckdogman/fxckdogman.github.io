@@ -195,9 +195,15 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h3 id="一-BOS项目登陆。"><a href="#一-BOS项目登陆。" class="headerlink" title="一.BOS项目登陆。"></a>一.BOS项目登陆。</h3><p>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。<br>2.创建UserAction.提供login方法。<br>    常见的登陆功能实现方法。<br>a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。<br>b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。<br>c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，<br>存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。</p>
-<h3 id="二-BOS项目注销用户"><a href="#二-BOS项目注销用户" class="headerlink" title="二.BOS项目注销用户"></a>二.BOS项目注销用户</h3><p>session失效ServletActionContext.getRequest().getSession().invalidate();</p>
-<h3 id="三-BOS项目修改密码"><a href="#三-BOS项目修改密码" class="headerlink" title="三.BOS项目修改密码"></a>三.BOS项目修改密码</h3><pre><code>技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。
+      		<h3 id="一-BOS项目登陆。"><a href="#一-BOS项目登陆。" class="headerlink" title="一.BOS项目登陆。"></a>一.BOS项目登陆。</h3><pre><code>1.修改login.jsp中登陆表单中Action(userAction_login.action)地址。
+2.创建UserAction.提供login方法。
+    常见的登陆功能实现方法。
+a)    页面对验证码进行判断。Form表单只上传用户名和密码。用于后台判断。
+b)    将用户名、密码验证码都传至后台，首先对验证码进行判断，错误抛出异常并设置提示信息（this.addActionError）。
+c)    用户验证分为两种1.首先通账号查询数据库是否存在对应用户，
+存在用户再将页面传入的密码和查询到的用户进行比对。2.直接去数据库匹配账户和密码一致的用户。
+</code></pre><h3 id="二-BOS项目注销用户"><a href="#二-BOS项目注销用户" class="headerlink" title="二.BOS项目注销用户"></a>二.BOS项目注销用户</h3><pre><code>session失效ServletActionContext.getRequest().getSession().invalidate();
+</code></pre><h3 id="三-BOS项目修改密码"><a href="#三-BOS项目修改密码" class="headerlink" title="三.BOS项目修改密码"></a>三.BOS项目修改密码</h3><pre><code>技术点1.ajax中回调函数中对回调参数进行判断，修改正确关闭修改密码的窗口，修改错误弹出提示框。
 Action中定义初始值为1的flag。将调用service层的方法放入try块中，如果有异常抛出（修改密码失败）
 catch块中将flag值改为0。
 
@@ -226,6 +232,50 @@ mode属性:定义了当文本改变时如何加载列表数据。设置为&quot;
 思路：这个属性表明我们设置为remote，在下拉框的输入框中输入内容会被命名为q发送到我们所设定的url中。
 Action属性驱动接收q并判断，为空查询所有数据。不为空findByQ。
 Dao层实现模糊查询方法，将所有会展示的数据都进行模糊查询。即可实现输入的无论是地区、省份、城市、简码、邮编都可以匹配。
+</code></pre><h3 id="六-分区分页查询"><a href="#六-分区分页查询" class="headerlink" title="六.分区分页查询"></a>六.分区分页查询</h3><pre><code>思路：页面传入模糊省市区或关键字，通过easyUI中datagrid提供的load方法
+（load:载入并显示第一页的记录，如果传递了param参数，他将会覆盖查询参数属性的值。通过传递一些参数，通常做一个查询，这个方法可以被称为从服务器加载新数据
+reload：重载记录，跟load方法一样但是重载的是当前页的记录而非第一页。）
+$(&apos;#dg&apos;).datagrid(&apos;load&apos;,{
+            code:&apos;01&apos;,
+            name:&apos;name&apos;
+                        });
+范例可以看出：第二个参数要的是一个json格式的数据，这时候我们需要将页面的数据转换成json数据然后传至后台。
+工具类：
+//定义一个工具方法，用于将指定的form表单中所有的输入项转为json数据{key:value,key:value}
+    $.fn.serializeJson=function(){  
+        var serializeObj={};  
+        var array=this.serializeArray();
+        $(array).each(function(){  
+            if(serializeObj[this.name]){  
+                if($.isArray(serializeObj[this.name])){  
+                    serializeObj[this.name].push(this.value);  
+                }else{  
+                    serializeObj[this.name]=[serializeObj[this.name],this.value];  
+                }  
+            }else{  
+                serializeObj[this.name]=this.value;   
+            }  
+        });  
+        return serializeObj;  
+    };
+后台获取分区对象。
+</code></pre><h3 id="七-分区数据导出功能"><a href="#七-分区数据导出功能" class="headerlink" title="七.分区数据导出功能"></a>七.分区数据导出功能</h3><pre><code>思路：
+1.从数据库中查询所有的分区数据。
+2.使用POI将数据写入Excel表格中。
+3.通过输出流实现文件下载。
+</code></pre><h3 id="八-定区添加"><a href="#八-定区添加" class="headerlink" title="八.定区添加"></a>八.定区添加</h3><pre><code>区域分成多个定区，定区中又包含多个分区。
+分区是划分的最小单位。
+定区表对于区域是多的一方，对于分区是一方。
+定区添加分区方法：查询所有未关联定区的分区，将属于当前定区的分区选中，将分区id提交。
+后台将分区分别添加至定区。
+</code></pre><h3 id="九-定区关联客户"><a href="#九-定区关联客户" class="headerlink" title="九.定区关联客户"></a>九.定区关联客户</h3><pre><code>使用远程调用WebService中查询未关联到定区的客户、已关联到定区的客户。
+页面使用左右选择框，点击提交按钮之前将右侧所有客户设为默认选中，提交至后台。
+后台通过数组接收客户id。
+添加思路：将数据库中关联当前定区的客户关联的定区更新为null，然后将页面传入所有选中的客户进行关联。
+</code></pre><h3 id="十-业务受理自动分单"><a href="#十-业务受理自动分单" class="headerlink" title="十.业务受理自动分单"></a>十.业务受理自动分单</h3><pre><code>WEBservice中添加通过电话查询客户方法和通过用户地址查询定区的方法。
+findCustomerByTelephone(String Telephone);
+findDecidezoneByAddress(String address);
+实现思路：
 </code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">

@@ -195,7 +195,38 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		
+      		<h3 id="一款ORM-Object-ralation-mapping：对象关系映射-的Dao层框架。操作数据库时，完全以面向对象的方式，不需要书写SQL语句。"><a href="#一款ORM-Object-ralation-mapping：对象关系映射-的Dao层框架。操作数据库时，完全以面向对象的方式，不需要书写SQL语句。" class="headerlink" title="一款ORM(Object ralation mapping：对象关系映射)的Dao层框架。操作数据库时，完全以面向对象的方式，不需要书写SQL语句。"></a>一款ORM(Object ralation mapping：对象关系映射)的Dao层框架。操作数据库时，完全以面向对象的方式，不需要书写SQL语句。</h3><p>框架搭建：</p>
+<h3 id="1-导包。"><a href="#1-导包。" class="headerlink" title="1.    导包。"></a>1.    导包。</h3><pre><code>lib文件夹下的required（必须）下jar包已经连接数据库需要的jar包/或Maven的pom文件中导入相关约束。
+</code></pre><h3 id="2-创建数据库，准备实体类。"><a href="#2-创建数据库，准备实体类。" class="headerlink" title="2.    创建数据库，准备实体类。"></a>2.    创建数据库，准备实体类。</h3><h3 id="3-书写orm元数据"><a href="#3-书写orm元数据" class="headerlink" title="3.书写orm元数据"></a>3.书写orm元数据</h3><pre><code>&lt;class&gt; package属性设置后  标签内其他需要使用到全包名的地方可以写简单类名
+属性配置实体与表的对应关系   name（完整类目） table 数据库名
+&lt;id&gt; name主键   &lt;generator&gt;主键生成策略 native
+&lt;property&gt;除id之外的普通属性映射   如果实体中属性名和表中字段一致。column可以省略
+</code></pre><h3 id="4-书写主配置文件"><a href="#4-书写主配置文件" class="headerlink" title="4.    书写主配置文件"></a>4.    书写主配置文件</h3><p>必选5个，数据库连接和方言<br>可选  打印 格式化sql    自动建表<br>引入元数据 </p>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>Session是用来与数据库进行交互</p>
+<h5 id="对对象的save-update-delect-…等操作其实是改变对象的状态"><a href="#对对象的save-update-delect-…等操作其实是改变对象的状态" class="headerlink" title="对对象的save()update()delect()…等操作其实是改变对象的状态"></a>对对象的save()update()delect()…等操作其实是改变对象的状态</h5><h5 id="1-瞬时态-有id但是没有和session建立关系"><a href="#1-瞬时态-有id但是没有和session建立关系" class="headerlink" title="1.瞬时态 (有id但是没有和session建立关系)"></a>1.瞬时态 (有id但是没有和session建立关系)</h5><h5 id="2-持久态-（有id和session建立关系）"><a href="#2-持久态-（有id和session建立关系）" class="headerlink" title="2.持久态 （有id和session建立关系）"></a>2.持久态 （有id和session建立关系）</h5><h5 id="3-游离态（没id没和session建立关系）"><a href="#3-游离态（没id没和session建立关系）" class="headerlink" title="3.游离态（没id没和session建立关系）"></a>3.游离态（没id没和session建立关系）</h5><h3 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h3><p>目的：提高效率<br>方法 ：查询会将resultSet集合中的内容放入缓存和快照中<br>下次查询时会先从缓存中查看<br>更改时会对比缓存中的快照，有变化同步到数据库</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><h5 id="特性：原子，一致，隔离，持久。"><a href="#特性：原子，一致，隔离，持久。" class="headerlink" title="特性：原子，一致，隔离，持久。"></a>特性：原子，一致，隔离，持久。</h5><p>原则：业务开启之前开启事务，业务提交之后提交事务，如果执行过程中出现异常，回滚事务<br>Dao层需要session保存操作<br>Service层需要session控制事务<br>要确保使用的是一个session对象<br>解决方案：将session绑定在当前线程<br>Hibernate中获取session有getCurrentSession();<br>要使用这个方法，必须在主配置中有一段配置</p>
+<h3 id="thread"><a href="#thread" class="headerlink" title="thread"></a><property name=”hibernate.current_session_context_class”>thread</property></h3><h5 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h5><p>HQL适用于多表不复杂时<br>Query query = session.createQuery(hql);<br>query.setLong();</p>
+<p>query.setParameter();<br>query.setFirstResult();<br>query.setMaxResult();</p>
+<p>结果：query.list();<br>query.uniqueResult();<br>Creteria  适用于单表条件查询（无语句面向对象查询）<br>获得：Creteria creteria = session.createCreteria(Customer.class);<br>creteria.list();<br>creteria.uniquerResult();<br>creteria.add(条件对象);<br>条件对象：Restrictions.eq(“cust_id”,1L);实体中主键名和实体中主键数据类型<br>count查询返回Long类型<br>    离线查询<br>    Web层凭空出现一个creteria<br>    DetachedCriteria dc = DetachedCriteria(session);<br>    Dao层 Criteria c = dc.getExecutableCriteria();<br>    List list = c.list();<br>原生SQL</p>
+<h3 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h3><pre><code>实体中使用&lt;set&gt;标签
+Name：实体中集合的名称   column外键列名称 class与其关联的对象完整类名
+&lt;key&gt;
+&lt;one-to-many&gt;
+级联操作：cascade  简化代码，在哪一方设置，将这方对象状态更新时同步到另一方对象
+关系维护：inverse  性能优化（关系维护） 无论怎么放弃，都要有一方进行维护，一对多中，只能是一的一方放弃，因为字段在多的一方，必须维护自己的字段。
+多对多
+&lt;set name  table&gt;
+    &lt;key column&gt;
+        &lt;many-to-many class column &gt;
+Name:当前对应的对象实体中集合的名称
+Table中间表名
+Column 当前对象引用当前对象的外键名称
+
+Class 当前对象与那个对象是多对多关系
+Clumn 当前对象对应引用别人的外键名
+</code></pre><h3 id="关系维护"><a href="#关系维护" class="headerlink" title="关系维护"></a>关系维护</h3><h5 id="必须有一方放弃维护"><a href="#必须有一方放弃维护" class="headerlink" title="必须有一方放弃维护"></a>必须有一方放弃维护</h5><p>多表维护关系的手段就是向中间表插入数据，都维护会发生插入数据重复<br>级联操作<br>    原理：<br>手动删除，是先将主表中的子表引用remove  将从表外键设置为null  然后删除<br>级联删除，就是将子表的外键引用设置为null然后删除主表子表</p>
+<h3 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h3><p>类级别查询<br>Get方法 没有任何策略，调用即查询数据库加载数据<br>Load 方法 应用级别的加载策略<br>&lt; class&gt;中配置lazy false  懒加载<br>批量抓取batch-size：3<br>抓取数据时 一次性抓取几个的对象集合</p>
+
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
