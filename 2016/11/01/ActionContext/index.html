@@ -8,7 +8,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>pinyin4J | Summer</title>
+  <title>ActionContext | Summer</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -186,34 +186,31 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-10-29T10:57:03.000Z" itemprop="datePublished">
-          2016-10-29
+      <time datetime="2016-11-01T09:14:30.000Z" itemprop="datePublished">
+          2016-11-01
       </time>
     
 </span>
-                <h1>pinyin4J</h1>
+                <h1>ActionContext</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		
+      		<p>ActionContex是Action执行的上下文对象，ActionContext中保存了Action执行所需要的所有对象。包括parameters、request、session、application。<br>访问ServletAPI方式<br>1.通过ActionContext类访问。(建议使用)<br>ActionContext context = ActionContext.getContext();//获取当前线程的ActionContext对象。<br>context.put();//向request域中存入数据。<br>context.getApplication();//向session中存入数据。<br>context.getSession();//向application中存入数据。<br>或许我们可以将ActionContex对象假想为Servlet中的request对象一样，封装了所有的请求数据。<br>2.通过ServletActionContext访问。<br>static HttpServletRequest getRequest();获取WEB应用的HttpServletRequest对象。<br>static HttpServletResponse getResponse();获取WEB应用的HttpServletRespose对象。<br>static HttpServletContext getServletContext();获取WEB应用的ServletContext对象。<br>static HttpServletContext getPageContext();获取WEB应用的PageContext对象。</p>
+
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/10/30/MyEclipes翻转引擎插件生成实体类和配置文件/" style="float: left;">
-        ← MyEclipes翻转引擎插件生成实体类和配置文件
-    </a>
     
-    
-    <a class="pull-right" href="/2016/10/29/Apache-POI/">
-        Apache POI →
+    <a class="pull-right" href="/2016/11/01/ServletContext/">
+        ServletContext →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/10/29/pinyin4J/" data-title="pinyin4J" data-url="http://yoursite.com/2016/10/29/pinyin4J/"></div>
+<div class="ds-thread" data-thread-key="2016/11/01/ActionContext/" data-title="ActionContext" data-url="http://yoursite.com/2016/11/01/ActionContext/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {
