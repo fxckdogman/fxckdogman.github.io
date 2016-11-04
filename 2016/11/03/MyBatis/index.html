@@ -220,7 +220,7 @@
 &lt;/select&gt;
 </code></pre><p>SELECT LAST_INSERT_ID()是mysql的函数，返回auto_increment自增列新记录id.</p>
 <p>parameterType&amp;RusultType<br>1.parameterType：<br>指定输入参数类型，mybatis通过ognl(对象导航语言)从输入对象中获取参数值拼接在sql中<br>2.resultType:<br>指定输出结果类型，mybatis将sql查询结果的一行记录数据映射为resultType类型指定类型的对象。如果有多条数据，则分别进行映射，并把对象放在容器List中。</p>
-<p>Dao开发方法</p>
+<p>Dao开发方法<br>手动通过SqlSessionFactoryBuilder获取SqlSessionFactory.<br>再通过SqlSessionFactory对象读取对应pojo配置文件获取SqlSession对象。<br>通过selectOne和selectList执行查询操作。</p>
 <p>Mapper动态代理开发<br>只需要编写Mapper接口，MyBatis框架根据接口创建接口动态代理对象。<br>需要一个Mapper接口文件。(类似于Dao层)一个Mapper.xml配置文件。<br>需遵循的规范：<br>1.Mapper.xml文件中的namespace与接口类路径相同。<br>2.Mapper接口方法名和Mapper.xml中定义的每个statement的id相同。<br>3.Mapper接口方法的返回值类型和Mapper.xml中定义的每个sql的parameterType类型相同。<br>4.Mapper借口哦方法的输入参数类型和Mapper.xml中定义的每个sql的parameterType类型相同。</p>
 <p>Mapper.xml配置文件内容。</p>
 <h3 id="约束："><a href="#约束：" class="headerlink" title="约束："></a>约束：</h3><pre><code>&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
@@ -272,7 +272,40 @@ sql片段：将重复的sql提取出来，用&lt;include&gt; refid属性引用�
 &lt;foreach collection=&quot;ids&quot; item=&quot;item&quot; open=&quot;id IN (&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
         #{item}
 &lt;/foreach&gt;
-</code></pre><h3 id="关联查询。"><a href="#关联查询。" class="headerlink" title="关联查询。"></a>关联查询。</h3>
+</code></pre><h3 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h3><p>关联查询即pojo中注入另一个pojo<br>&lt;– association ：配置一对一属性 –&gt;<br>关联查询必须手动映射所有字段！<br>自定义映射使用resultMap标签<br>type属性是指要映射的哪个对象<br>id指resultMap的id,<br>实现方法select标签的resultMap属性填写自定义的resultMap的id</p>
+<pre><code>&lt;resultMap type=&quot;user&quot; id=&quot;userOrderResultMap&quot;&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;
+    &lt;result property=&quot;username&quot; column=&quot;username&quot; /&gt;
+    &lt;result property=&quot;birthday&quot; column=&quot;birthday&quot; /&gt;
+    &lt;result property=&quot;sex&quot; column=&quot;sex&quot; /&gt;
+    &lt;result property=&quot;address&quot; column=&quot;address&quot; /&gt;
+
+    &lt;!-- 配置一对多的关系 --&gt;
+    &lt;collection property=&quot;orders&quot; javaType=&quot;list&quot; ofType=&quot;order&quot;&gt;
+        &lt;!-- 配置主键，是关联Order的唯一标识 --&gt;
+        &lt;id property=&quot;id&quot; column=&quot;oid&quot; /&gt;
+        &lt;result property=&quot;number&quot; column=&quot;number&quot; /&gt;
+        &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot; /&gt;
+        &lt;result property=&quot;note&quot; column=&quot;note&quot; /&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
+</code></pre><p>其实就是通过标签将整个pojo中的所有查询结果（包含pojo）映射到pojo当中。</p>
+<h3 id="Mybatis整合spring"><a href="#Mybatis整合spring" class="headerlink" title="Mybatis整合spring"></a>Mybatis整合spring</h3><p>整合思路：<br>1.SqlSessionFactory对象应该放到spring容器中作为单例存在。<br>2.传统Dao开发是从spring容器中获取sqlSession对象。<br>3.Mapper开发模式是从spring容器中直接获取mapper对象，数据库的链接，事务管理等都交给spring容器来完成。</p>
+<h3 id="原始dao开发："><a href="#原始dao开发：" class="headerlink" title="原始dao开发："></a>原始dao开发：</h3><pre><code>接口和实现类，实现类需要继承SqlSessionFactorySupport类来获取SqlSession.
+在Dao层获取SqlSession并调取接口中的方法。selectOne或者selectList(&quot;方法名&quot;，参数)
+在spring配置文件中将sqlSessionFactory注入到Dao层。
+</code></pre><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><!-- Mapper代理的方式开发方式一，配置Mapper代理对象 --></h3><pre><code>&lt;bean id=&quot;userMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
+    &lt;!-- 配置Mapper接口 --&gt;
+    &lt;property name=&quot;mapperInterface&quot; value=&quot;cn.itcast.mybatis.mapper.UserMapper&quot; /&gt;
+    &lt;!-- 配置sqlSessionFactory --&gt;
+    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot; /&gt;
+&lt;/bean&gt;
+&lt;!-- Mapper代理的方式开发方式二，扫描包方式配置代理 自动注入sqlSessionFactory--&gt;
+&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+    &lt;!-- 配置Mapper接口 --&gt;
+    &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.mybatis.mapper&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
