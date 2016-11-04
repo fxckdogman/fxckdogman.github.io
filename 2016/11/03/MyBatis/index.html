@@ -195,25 +195,55 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>Mybatis是一个优秀的持久层框架，对jdbc的操作数据库过程进行了封装，开发者只需要关注SQL本身。<br>MyBatis通过xml或注解的方式将要执行的statement配置起来，通过java对象和statement中的sql进行映射生成最终执行的sql语句，最有后mybaties框架执行sql并结果映射成java对象并返回。</p>
+      		<p>Mybatis是一个优秀的持久层框架，对jdbc的操作数据库过程进行了封装，开发者只需要关注SQL本身。<br>MyBatis通过xml或注解的方式将要执行的statement配置起来，通过java对象和statement中的sql进行映射生成最终执行的sql语句，最后由mybaties框架执行sql并结果映射成java对象并返回。</p>
 <p>mybaties入门(传统方法)<br>1.创建java工程<br>2.导入jar包。<br>3.创建主配置文件SqlMapperConfig.xml(config/SqlMapperConfig.xml)<br>4.创建domain对象。<br>5.创建sql映射文件User.xml(config/User.xml)<br>6.将config下的User.xml添加到主配置文件中</p>
-<p>映射文件编写<br>User.xml添加select标签编写sql.</p>
-<select namespace="" id="" parameterTtpe="" resultType=""><br>    namespace:命名空间，用于隔离sql<br>    id:statement的id或者叫做sql的id<br>    parameterType:声明输入参数的类型<br>    resultType=声明返回值的类型<br></select>
-
-<p>测试程序<br>1.创建SqlSessionFactoryBuilder.<br>2.加载SqlMapConfig配置文件<br>3.创建SqlSessionFactory对象<br>4.创建SqlSession对象<br>5.执行SqlSession对象查询，获取结果。<br>6.释放资源</p>
+<h3 id="映射文件编写"><a href="#映射文件编写" class="headerlink" title="映射文件编写"></a>映射文件编写</h3><pre><code>User.xml添加select标签编写sql.
+&lt;select namespace=&quot;&quot; id=&quot;&quot; parameterTtpe=&quot;&quot; resultType=&quot;&quot;&gt;
+    namespace:命名空间，用于隔离sql
+    id:statement的id或者叫做sql的id
+    parameterType:声明输入参数的类型
+    resultType=声明返回值的类型
+&lt;/select&gt;
+</code></pre><p>测试程序<br>1.创建SqlSessionFactoryBuilder.<br>2.加载SqlMapConfig配置文件<br>3.创建SqlSessionFactory对象<br>4.创建SqlSession对象<br>5.执行SqlSession对象查询，获取结果。<br>6.释放资源</p>
 <p>#{}和${}</p>
 <p>#{}表示一个占位符，通常#{}可以实现向parameterStatement占位符中设置值。会自动进行java类型和jdbc类型转换。<br>可以接收简单的类型值或pojo属性值。<br>如果parameterType传输单个简单类型值。#{}中可以是value或其他名称。</p>
 <p>${}表示拼接sql字符串，通过${}可以将parameterType忠臣传入的内容拼接在一起而不进行jdbc类型转换，${}可以接受简单类型值或pojo属性值。<br>如果parameterType传输的是单个简单类型值，${}值只能是value。</p>
-<p>自增主键返回</p>
-<select><br>    <selectKey keyColumn="" keyProperty="" order="" resultType=""><br>        SELECT LAST_INSERT_ID()<br>    </selectKey><br>    INSERT INTO user (username,sex,birthday,address) VALUES (${username},${sex},${birthday},${address})<br></select>
+<h3 id="自增主键返回"><a href="#自增主键返回" class="headerlink" title="自增主键返回"></a>自增主键返回</h3><pre><code>&lt;select&gt;
+    &lt;selectKey keyColumn=&quot;&quot; keyProperty=&quot;&quot; order=&quot;&quot; resultType=&quot;&quot;&gt;
+        order:执行语句前还是执行语句后执行查询id的sql
+        int类型id用AFTER
+        uuid 用BEFORE
+        resultType：自增int型id用 int  uuid为String
+        SELECT LAST_INSERT_ID()
+    &lt;/selectKey&gt;
+    INSERT INTO user (username,sex,birthday,address) VALUES (${username},${sex},${birthday},${address})
+&lt;/select&gt;
+</code></pre><p>SELECT LAST_INSERT_ID()是mysql的函数，返回auto_increment自增列新记录id.</p>
+<p>parameterType&amp;RusultType<br>1.parameterType：<br>指定输入参数类型，mybatis通过ognl(对象导航语言)从输入对象中获取参数值拼接在sql中<br>2.resultType:<br>指定输出结果类型，mybatis将sql查询结果的一行记录数据映射为resultType类型指定类型的对象。如果有多条数据，则分别进行映射，并把对象放在容器List中。</p>
+<p>Dao开发方法</p>
+<p>Mapper动态代理开发<br>只需要编写Mapper接口，MyBatis框架根据接口创建接口动态代理对象。<br>需要一个Mapper接口文件。(类似于Dao层)一个Mapper.xml配置文件。<br>需遵循的规范：<br>1.Mapper.xml文件中的namespace与接口类路径相同。<br>2.Mapper接口方法名和Mapper.xml中定义的每个statement的id相同。<br>3.Mapper接口方法的返回值类型和Mapper.xml中定义的每个sql的parameterType类型相同。<br>4.Mapper借口哦方法的输入参数类型和Mapper.xml中定义的每个sql的parameterType类型相同。</p>
+<p>Mapper.xml配置文件内容。</p>
+<h3 id="约束："><a href="#约束：" class="headerlink" title="约束："></a>约束：</h3><pre><code>&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+</code></pre><h3 id=""><a href="#" class="headerlink" title=""></a><mapper namespace="接口类路径"></h3> <select id="mapper接口方法名一致" parameterType="与接口方法输入参数类型一致" resultType="与接口方法返回参数类型一致"><br>    sql语句<br> </select>
 
 
-
-
-
-
-
-
+<p>SqlMapConfig.xml<br>配置内容<br>SqlMapConfig.xml中配置的内容和顺序如下：<br>properties（属性）<br>settings（全局配置参数）<br>typeAliases（类型别名）<br>typeHandlers（类型处理器）<br>objectFactory（对象工厂）<br>plugins（插件）<br>environments（环境集合属性对象）<br>environment（环境子属性对象）<br>transactionManager（事务管理）<br>dataSource（数据源）<br>mappers（映射器）</p>
+<h3 id="properties属性"><a href="#properties属性" class="headerlink" title="properties属性"></a>properties属性</h3><pre><code>&lt;properties resource=&quot;加载外部配置文件&quot;&gt;
+    typeAlias属性(类型别名 )
+    &lt;typeAliases&gt;
+    &lt;!-- 自定义单个别名--&gt;
+    &lt;typeAlias alias=&quot;user&quot; type=&quot;cn.pronfreebook.mybatis.domain.User&quot;&gt;
+    &lt;!--批量定义别名 扫描包下的所有类 默认别名为类名，大小写不敏感--&gt;
+    &lt;package name=&quot;cn.pronfreebook.mybatis.demain&quot;&gt;
+&lt;/typeAliases&gt;
+</code></pre><h3 id="mappers属性"><a href="#mappers属性" class="headerlink" title="mappers属性"></a>mappers属性</h3><pre><code>&lt;mappers&gt;
+    加载单个配置文件
+    &lt;mapper resource=&quot;sqlmap/User.xml&quot;&gt;
+    加载包下所有配置文件
+    要求mapper接口名称和mapper映射文件名称相同，在同一个目录下。
+    &lt;package resource=&quot;cn.pronfreebook.mybatis.mapper&quot;&gt;
+&lt;/mappers&gt;
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
