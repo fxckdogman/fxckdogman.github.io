@@ -224,10 +224,10 @@
 <p>Mapper动态代理开发<br>只需要编写Mapper接口，MyBatis框架根据接口创建接口动态代理对象。<br>需要一个Mapper接口文件。(类似于Dao层)一个Mapper.xml配置文件。<br>需遵循的规范：<br>1.Mapper.xml文件中的namespace与接口类路径相同。<br>2.Mapper接口方法名和Mapper.xml中定义的每个statement的id相同。<br>3.Mapper接口方法的返回值类型和Mapper.xml中定义的每个sql的parameterType类型相同。<br>4.Mapper借口哦方法的输入参数类型和Mapper.xml中定义的每个sql的parameterType类型相同。</p>
 <p>Mapper.xml配置文件内容。</p>
 <h3 id="约束："><a href="#约束：" class="headerlink" title="约束："></a>约束：</h3><pre><code>&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-</code></pre><h3 id=""><a href="#" class="headerlink" title=""></a><mapper namespace="接口类路径"></h3> <select id="mapper接口方法名一致" parameterType="与接口方法输入参数类型一致" resultType="与接口方法返回参数类型一致"><br>    sql语句<br> </select>
-
-
-<p>SqlMapConfig.xml<br>配置内容<br>SqlMapConfig.xml中配置的内容和顺序如下：<br>properties（属性）<br>settings（全局配置参数）<br>typeAliases（类型别名）<br>typeHandlers（类型处理器）<br>objectFactory（对象工厂）<br>plugins（插件）<br>environments（环境集合属性对象）<br>environment（环境子属性对象）<br>transactionManager（事务管理）<br>dataSource（数据源）<br>mappers（映射器）</p>
+</code></pre><h3 id=""><a href="#" class="headerlink" title=""></a><mapper namespace="接口类路径"></h3><pre><code>&lt;select id=&quot;mapper接口方法名一致&quot; parameterType=&quot;与接口方法输入参数类型一致&quot; resultType=&quot;与接口方法返回参数类型一致&quot;&gt;
+   sql语句
+&lt;/select&gt;
+</code></pre><h3 id="SqlMapConfig-xml"><a href="#SqlMapConfig-xml" class="headerlink" title="SqlMapConfig.xml"></a>SqlMapConfig.xml</h3><p>配置内容<br>SqlMapConfig.xml中配置的内容和顺序如下：<br>properties（属性）<br>settings（全局配置参数）<br>typeAliases（类型别名）<br>typeHandlers（类型处理器）<br>objectFactory（对象工厂）<br>plugins（插件）<br>environments（环境集合属性对象）<br>environment（环境子属性对象）<br>transactionManager（事务管理）<br>dataSource（数据源）<br>mappers（映射器）</p>
 <h3 id="properties属性"><a href="#properties属性" class="headerlink" title="properties属性"></a>properties属性</h3><pre><code>&lt;properties resource=&quot;加载外部配置文件&quot;&gt;
     typeAlias属性(类型别名 )
     &lt;typeAliases&gt;
@@ -237,9 +237,9 @@
     &lt;package name=&quot;cn.pronfreebook.mybatis.demain&quot;&gt;
 &lt;/typeAliases&gt;
 </code></pre><h3 id="mappers属性"><a href="#mappers属性" class="headerlink" title="mappers属性"></a>mappers属性</h3><pre><code>&lt;mappers&gt;
-    加载单个配置文件
+    &lt;!--加载单个配置文件--&gt;
     &lt;mapper resource=&quot;sqlmap/User.xml&quot;&gt;
-    加载包下所有配置文件
+    &lt;!--加载包下所有配置文件--&gt;
     要求mapper接口名称和mapper映射文件名称相同，在同一个目录下。
     &lt;package resource=&quot;cn.pronfreebook.mybatis.mapper&quot;&gt;
 &lt;/mappers&gt;
