@@ -243,7 +243,36 @@
     要求mapper接口名称和mapper映射文件名称相同，在同一个目录下。
     &lt;package resource=&quot;cn.pronfreebook.mybatis.mapper&quot;&gt;
 &lt;/mappers&gt;
-</code></pre>
+</code></pre><p>resultMap<br>resultType可以指定将查询结果映射为pojo，但需要pojo的属性名和sql查询的列名一致方可映射成功。<br>如果sql查询字段名和pojo的属性名不一致，可以通过resultMap将字段名和属性名作一个对应关系 ，resultMap实质上还需要将查询结果映射到pojo对象中。<br>resultMap可以实现将查询结果映射为复杂类型的pojo，比如在查询结果映射对象中包括pojo和list实现一对一查询和一对多查询。</p>
+<p>当出现查询的列(数据库字段)和实体类属性不一致时，查询出的结果不能映射到pojo中。<br>可以自定义resultMap，将其对应起来。</p>
+<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><pre><code>&lt;mapper namespace=&quot;cn.itcast.mybatis.mapper.OrderMapper&quot;&gt;
+&lt;!-- resultMap要将不对应的结果映射到pojo上，type指定映射到哪一个pojo --&gt;
+&lt;!-- id：设置ResultMap的id --&gt;
+&lt;resultMap type=&quot;order&quot; id=&quot;orderResultMap&quot;&gt;
+    &lt;!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id --&gt;
+    &lt;!-- property：主键是实体类中的属性名 --&gt;
+    &lt;!-- column：主键在数据库中的字段名 --&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;
+    &lt;!-- 定义普通属性 --&gt;
+    &lt;result property=&quot;userId&quot; column=&quot;user_id&quot; /&gt;
+    &lt;result property=&quot;number&quot; column=&quot;number&quot; /&gt;
+    &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot; /&gt;
+    &lt;result property=&quot;note&quot; column=&quot;note&quot; /&gt;
+&lt;/resultMap&gt;
+</code></pre><h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><pre><code>通过mybatis提供的标签实现动态拼接sql语句。
+&lt;if&gt;标签：判断当前字段是否存在来实现是否添加查询条件。
+&lt;where&gt;标签：自动添加where，同时处理sql语句中的第一个and关键字，即如果第一个&lt;if&gt;条件不满足，而第二个&lt;if&gt;满足条件，去除第二个&lt;if&gt;将要添加sql字段的AND关键字。
+
+sql片段：将重复的sql提取出来，用&lt;include&gt; refid属性引用。
+&lt;sql id=&quot;xx&quot;&gt;
+    sql片段
+&lt;/sql&gt;
+</code></pre><p>如果要使用别的Mapper.xml配置的sql片段，可以在refid前面加上对应的Mapper.xml的namespace。</p>
+<h3 id="foreach标签："><a href="#foreach标签：" class="headerlink" title="foreach标签："></a>foreach标签：</h3><pre><code>向sql传递数组或者List时使用。
+&lt;foreach collection=&quot;ids&quot; item=&quot;item&quot; open=&quot;id IN (&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
+        #{item}
+&lt;/foreach&gt;
+</code></pre><h3 id="关联查询。"><a href="#关联查询。" class="headerlink" title="关联查询。"></a>关联查询。</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
