@@ -195,11 +195,11 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h2 id="依赖管理：对jar包的统一管理，节省空间。"><a href="#依赖管理：对jar包的统一管理，节省空间。" class="headerlink" title="依赖管理：对jar包的统一管理，节省空间。"></a>依赖管理：对jar包的统一管理，节省空间。</h2><h3 id="1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml"><a href="#1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml" class="headerlink" title="1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml"></a>1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml</h3><pre><code>bos-utils Maven Module packing:war   子工程 存放工具类、webService接口
-bos-domain Maven Module packing:war     子工程 存放实体类、映射文件
+      		<h2 id="依赖管理：对jar包的统一管理，节省空间。"><a href="#依赖管理：对jar包的统一管理，节省空间。" class="headerlink" title="依赖管理：对jar包的统一管理，节省空间。"></a>依赖管理：对jar包的统一管理，节省空间。</h2><h3 id="1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml"><a href="#1-创建工程：bos-parent-maven-Project-packing-pom-打包方式-父工程-提供pom-xml" class="headerlink" title="1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml"></a>1.创建工程：bos-parent maven Project packing:pom(打包方式)  父工程  提供pom.xml</h3><pre><code>bos-utils Maven Module packing:jar   子工程 存放工具类、webService接口
+bos-domain Maven Module packing:jar     子工程 存放实体类、映射文件
 bos-web Maven Module packing:war     子工程 存放表现层代码、页面、js、css等资源文件
-bos-service Maven Module packing:war     子工程 存放业务层代码
-bos-dao Maven Module packing:war     子工程 存放持久层代码
+bos-service Maven Module packing:jar     子工程 存放业务层代码
+bos-dao Maven Module packing:jar     子工程 存放持久层代码
 </code></pre><h3 id="2-基础设置部分需求分析。"><a href="#2-基础设置部分需求分析。" class="headerlink" title="2.基础设置部分需求分析。"></a>2.基础设置部分需求分析。</h3><pre><code>2.1表数据分析：
 区域表(region)：此功能区域为行政分区区域。
 分区表(subarea)：区域范围过大，不便管理，区域细分形成分区。

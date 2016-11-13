@@ -305,11 +305,21 @@ sql片段：将重复的sql提取出来，用&lt;include&gt; refid属性引用�
     &lt;!-- 配置Mapper接口 --&gt;
     &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.mybatis.mapper&quot; /&gt;
 &lt;/bean&gt;
-</code></pre>
+</code></pre><p>SqlMapperConfig.xml主配置文件<br>XxxMapper.xml对应实体类配置文件，用来写sql语句。<br>mybatis两大组件(核心配置文件，表对应的xml文件)产生sqlSessionFactory来生产sqlSession。<br>sqlSession中的Execute对象来执行sql语句。</p>
+<p>原始Dao开发：<br>需要Dao层接口、实现类、Mapper文件。<br>不通过配置文件注入SqlSession。自己手动调用对象方法得到。然后操作数据库。</p>
+<p>Mapper<br>需要接口、Mapper配置文件<br>遵循四大原则，只需要接口，sqlSession通过提供的接口自动生成实现类xxxMapper<br>通过实现类调用方法。</p>
+<p>Spring整合MyBatis原始Dao层开发<br>Dao层实现SqlSessionDaoSupport类  即可使用提供的getSqlSession来获取SqlSession</p>
+<p>Mapper开发<br>在applicationContext中配置bean将SqlSessionFactory和mapperInterface注入到MapperFactoryBean中通过getBean来获取Mapper对象。<br>我们通常使用扫描包形式来配置，</p>
+<p><bean class="...MapperScannerConfigurer"><br>    <property name="basePackage" value="....mapper"/><br></bean><br>会自动配置包下的所有子包<br>Mapper代理对象的id为首字母小写的类名。且自动注入MapperFactoryBean</p>
+
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/11/11/To You/" style="float: left;">
+        ← To You
+    </a>
     
     
     <a class="pull-right" href="/2016/11/01/ActionContext/">
